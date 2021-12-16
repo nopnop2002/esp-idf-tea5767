@@ -1,0 +1,37 @@
+menu "TEA5767 Configuration"
+
+	config SCL_GPIO
+		int "SCL GPIO number"
+		range 0 46
+		default 22 if IDF_TARGET_ESP32
+		default 12 if IDF_TARGET_ESP32S2
+		default 9  if IDF_TARGET_ESP32C3
+		help
+			GPIO number (IOxx) to I2C SCL.
+			Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to I2C.
+			GPIOs 35-39 are input-only so cannot be used as outputs.
+
+	config SDA_GPIO
+		int "SDA GPIO number"
+		range 0 46
+		default 21 if IDF_TARGET_ESP32
+		default 11 if IDF_TARGET_ESP32S2
+		default 10 if IDF_TARGET_ESP32C3
+		help
+			GPIO number (IOxx) to I2C SDA.
+			Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to I2C.
+			GPIOs 35-39 are input-only so cannot be used as outputs.
+
+	choice FM_BAND
+		bool "Select your location"
+		default FM_BAND_US
+		help
+			Select your location.
+
+		config FM_BAND_US
+			bool "US/Europe (87.5 MHz to 108 MHz)"
+		config FM_BAND_JP
+			bool "Japan (76 MHz to 91 MHz)"
+	endchoice
+
+endmenu
