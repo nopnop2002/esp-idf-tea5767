@@ -9,7 +9,6 @@
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-//#include "freertos/queue.h"
 #include "freertos/message_buffer.h"
 #include "nvs_flash.h"
 #include "nvs.h"
@@ -83,10 +82,11 @@ void keyin(void *pvParameters)
 	vTaskDelete( NULL );
 }
 
+#if 0
 esp_err_t NVS_check_key(nvs_handle_t my_handle, char * key) {
 	ESP_LOGD(TAG, "NVS_KEY_NAME_MAX_SIZE=%d", NVS_KEY_NAME_MAX_SIZE);
 	if (strlen(key) > NVS_KEY_NAME_MAX_SIZE-1) {
-		ESP_LOGE(TAG, "Maximal length is %d", NVS_KEY_NAME_MAX_SIZE-1);
+		ESP_LOGE(TAG, "Maximal key length is %d", NVS_KEY_NAME_MAX_SIZE-1);
 		return ESP_ERR_INVALID_ARG;
 	}
 
@@ -106,20 +106,22 @@ esp_err_t NVS_check_key(nvs_handle_t my_handle, char * key) {
 	}
 	return err;
 }
+#endif
 
-int32_t NVS_read_key(nvs_handle_t my_handle, char * key) {
+esp_err_t NVS_read_int16(nvs_handle_t my_handle, char * key, int16_t *value) {
 	ESP_LOGD(TAG, "NVS_KEY_NAME_MAX_SIZE=%d", NVS_KEY_NAME_MAX_SIZE);
 	if (strlen(key) > NVS_KEY_NAME_MAX_SIZE-1) {
-		ESP_LOGE(TAG, "Maximal length is %d", NVS_KEY_NAME_MAX_SIZE-1);
+		ESP_LOGE(TAG, "Maximal key length is %d", NVS_KEY_NAME_MAX_SIZE-1);
 		return ESP_ERR_INVALID_ARG;
 	}
 
-	ESP_LOGI(TAG, "Reading [%s] from NVS ... ", key);
-	int32_t value = 0; // value will default to 0, if not set yet in NVS
-	esp_err_t err = nvs_get_i32(my_handle, key, &value);
+	ESP_LOGI(TAG, "NVS_read_int16 Reading [%s] from NVS ... ", key);
+	int16_t _value = 0; // value will default to 0, if not set yet in NVS
+	esp_err_t err = nvs_get_i16(my_handle, key, &_value);
 	switch (err) {
 		case ESP_OK:
-			ESP_LOGI(TAG, "Done. [%s] = %d", key, value);
+			ESP_LOGI(TAG, "NVS_read_int16 Done. [%s] = %d", key, _value);
+			*value = _value;
 			break;
 		case ESP_ERR_NVS_NOT_FOUND:
 			ESP_LOGW(TAG, "The value is not initialized yet!");
@@ -128,18 +130,18 @@ int32_t NVS_read_key(nvs_handle_t my_handle, char * key) {
 			ESP_LOGE(TAG, "Error (%s) read!", esp_err_to_name(err));
 			break;
 	}
-	return value;
+	return err;
 }
 
-esp_err_t NVS_write_key(nvs_handle_t my_handle, char * key, int32_t value) {
+esp_err_t NVS_write_int16(nvs_handle_t my_handle, char * key, int16_t value) {
 	ESP_LOGD(TAG, "NVS_KEY_NAME_MAX_SIZE=%d", NVS_KEY_NAME_MAX_SIZE);
 	if (strlen(key) > NVS_KEY_NAME_MAX_SIZE-1) {
-		ESP_LOGE(TAG, "Maximal length is %d", NVS_KEY_NAME_MAX_SIZE-1);
+		ESP_LOGE(TAG, "Maximal key length is %d", NVS_KEY_NAME_MAX_SIZE-1);
 		return ESP_ERR_INVALID_ARG;
 	}
 
-	esp_err_t err = nvs_set_i32(my_handle, key, value);
-	ESP_LOGI(TAG, "nvs_set_i32 err=%d", err);
+	esp_err_t err = nvs_set_i16(my_handle, key, value);
+	ESP_LOGI(TAG, "nvs_set_i16 err=%d", err);
 	if (err == ESP_OK) {
 		// Commit written value.
 		// After setting any values, nvs_commit() must be called to ensure changes are written
@@ -160,7 +162,7 @@ esp_err_t NVS_write_key(nvs_handle_t my_handle, char * key, int32_t value) {
 esp_err_t NVS_delete_key(nvs_handle_t my_handle, char * key) {
 	ESP_LOGD(TAG, "NVS_KEY_NAME_MAX_SIZE=%d", NVS_KEY_NAME_MAX_SIZE);
 	if (strlen(key) > NVS_KEY_NAME_MAX_SIZE-1) {
-		ESP_LOGE(TAG, "Maximal length is %d", NVS_KEY_NAME_MAX_SIZE-1);
+		ESP_LOGE(TAG, "Maximal key length is %d", NVS_KEY_NAME_MAX_SIZE-1);
 		return ESP_ERR_INVALID_ARG;
 	}
 
@@ -194,15 +196,14 @@ void app_main()
 	}
 	ESP_LOGI(TAG, "nvs_open Done");
 
-	int32_t preset_frequence = 0;
+	int16_t presetFrequence = 0;
+#if 0
 	// Check key
 	err = NVS_check_key(my_handle, KEY);
 	ESP_LOGI(TAG, "NVS_check_key=%d", err);
-	if (err == ESP_OK) {
-		// Read
-		preset_frequence = NVS_read_key(my_handle, KEY);
-		ESP_LOGI(TAG, "preset_frequence=%d", preset_frequence);
-	}
+#endif
+	err = NVS_read_int16(my_handle, KEY, &presetFrequence);
+	ESP_LOGI(TAG, "NVS_read_int16=%d presetFrequence=%d", err, presetFrequence);
 
 	// Create Message Buffer
 	xMessageBufferMain = xMessageBufferCreate(1024);
@@ -220,16 +221,16 @@ void app_main()
 
 	double current_freq;
 #if CONFIG_FM_BAND_US
-	if (preset_frequence != 0) {
-		current_freq = preset_frequence / 10.0;
+	if (presetFrequence != 0) {
+		current_freq = presetFrequence / 10.0;
 	} else {
 		current_freq = TEA5767_US_FM_BAND_MIN; // go to station 87.5MHz
 	}
 #endif
 #if CONFIG_FM_BAND_JP
 	radio_set_japanese_band(&ctrl_data);
-	if (preset_frequence != 0) {
-		current_freq = preset_frequence / 10.0;
+	if (presetFrequence != 0) {
+		current_freq = presetFrequence / 10.0;
 	} else {
 		current_freq = TEA5767_JP_FM_BAND_MIN; // go to station 76.0MHz
 	}
@@ -282,9 +283,9 @@ void app_main()
 				}
 
 				if ( strcmp (id, "preset-request") == 0) {
-					preset_frequence = current_freq * 10;
-					err = NVS_write_key(my_handle, KEY, preset_frequence);
-					ESP_LOGI(TAG, "NVS_write_key=%d, preset_frequence=%d current_freq=%f", err, preset_frequence, current_freq);
+					presetFrequence = current_freq * 10;
+					err = NVS_write_int16(my_handle, KEY, presetFrequence);
+					ESP_LOGI(TAG, "NVS_write_int16=%d, presetFrequence=%d current_freq=%f", err, presetFrequence, current_freq);
 				}
 
 			} // end if
