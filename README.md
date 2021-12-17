@@ -48,7 +48,10 @@ idf.py flash
 ```
 
 # Configuration   
-You have to set this config value with menuconfig.   
+
+![config-top](https://user-images.githubusercontent.com/6020549/146292879-4be4bc9b-6a2e-4cb9-b0a8-bdad5fae8615.jpg)
+![config-tea5767](https://user-images.githubusercontent.com/6020549/146292884-e29e45a4-4f99-4314-bb20-4f03bacbe2f7.jpg)
+
 - CONFIG_SCL_GPIO   
  GPIO number(IOxx) to SCL.
 - CONFIG_SDA_GPIO   
@@ -57,9 +60,6 @@ You have to set this config value with menuconfig.
  In US/EU it ranges from 87.5 MHz to 108 MHz.   
  In Japan it ranges from 76 MHz to 91 MHz.   
  Used when wrapping in a search.   
-
-![config-top](https://user-images.githubusercontent.com/6020549/146292879-4be4bc9b-6a2e-4cb9-b0a8-bdad5fae8615.jpg)
-![config-tea5767](https://user-images.githubusercontent.com/6020549/146292884-e29e45a4-4f99-4314-bb20-4f03bacbe2f7.jpg)
 
 # Wireing
 
@@ -90,3 +90,6 @@ Refer to tea5767.h.
 - Clear preset   
  idf.py erase-flash   
 
+
+# Reference   
+https://github.com/nopnop2002/esp-idf-fm-radio
