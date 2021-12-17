@@ -88,7 +88,7 @@ Refer to tea5767.h.
  At boot time, it read from NVS and set to the current Radio station.   
 
 - Clear preset   
- idf.py erase-flash   
+ ```idf.py erase-flash```   
 
 
 # Reference   
