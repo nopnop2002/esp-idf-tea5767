@@ -33,7 +33,7 @@ void keyin(void *pvParameters)
 			vTaskDelay(10);
 			continue;
 		}
-		ESP_LOGI(pcTaskGetName(NULL), "c=%x", c);
+		ESP_LOGI(pcTaskGetName(NULL), "c=0x%x", c);
 		if (c == 0x2b) {
 			ESP_LOGI(TAG, "Push +");
 			cJSON *request;
@@ -75,7 +75,65 @@ void keyin(void *pvParameters)
 			}
 			cJSON_Delete(request);
 			cJSON_free(my_json_string);
+
+		} else if (c == 0x44) {
+			ESP_LOGI(TAG, "Push D");
+			cJSON *request;
+			request = cJSON_CreateObject();
+			cJSON_AddStringToObject(request, "id", "minus1.0-request");
+			char *my_json_string = cJSON_Print(request);
+			ESP_LOGD(TAG, "my_json_string\n%s",my_json_string);
+			size_t xBytesSent = xMessageBufferSend(xMessageBufferMain, my_json_string, strlen(my_json_string), portMAX_DELAY);
+			if (xBytesSent != strlen(my_json_string)) {
+				ESP_LOGE(TAG, "xMessageBufferSend fail");
+			}
+			cJSON_Delete(request);
+			cJSON_free(my_json_string);
+
+		} else if (c == 0x64) {
+			ESP_LOGI(TAG, "Push d");
+			cJSON *request;
+			request = cJSON_CreateObject();
+			cJSON_AddStringToObject(request, "id", "minus0.1-request");
+			char *my_json_string = cJSON_Print(request);
+			ESP_LOGD(TAG, "my_json_string\n%s",my_json_string);
+			size_t xBytesSent = xMessageBufferSend(xMessageBufferMain, my_json_string, strlen(my_json_string), portMAX_DELAY);
+			if (xBytesSent != strlen(my_json_string)) {
+				ESP_LOGE(TAG, "xMessageBufferSend fail");
+			}
+			cJSON_Delete(request);
+			cJSON_free(my_json_string);
+
+		} else if (c == 0x55) {
+			ESP_LOGI(TAG, "Push U");
+			cJSON *request;
+			request = cJSON_CreateObject();
+			cJSON_AddStringToObject(request, "id", "plus1.0-request");
+			char *my_json_string = cJSON_Print(request);
+			ESP_LOGD(TAG, "my_json_string\n%s",my_json_string);
+			size_t xBytesSent = xMessageBufferSend(xMessageBufferMain, my_json_string, strlen(my_json_string), portMAX_DELAY);
+			if (xBytesSent != strlen(my_json_string)) {
+				ESP_LOGE(TAG, "xMessageBufferSend fail");
+			}
+			cJSON_Delete(request);
+			cJSON_free(my_json_string);
+
+		} else if (c == 0x75) {
+			ESP_LOGI(TAG, "Push u");
+			cJSON *request;
+			request = cJSON_CreateObject();
+			cJSON_AddStringToObject(request, "id", "plus0.1-request");
+			char *my_json_string = cJSON_Print(request);
+			ESP_LOGD(TAG, "my_json_string\n%s",my_json_string);
+			size_t xBytesSent = xMessageBufferSend(xMessageBufferMain, my_json_string, strlen(my_json_string), portMAX_DELAY);
+			if (xBytesSent != strlen(my_json_string)) {
+				ESP_LOGE(TAG, "xMessageBufferSend fail");
+			}
+			cJSON_Delete(request);
+			cJSON_free(my_json_string);
 		}
+
+
 	}
 
 	/* Never reach */
@@ -286,6 +344,62 @@ void app_main()
 					presetFrequence = current_freq * 10;
 					err = NVS_write_int16(my_handle, KEY, presetFrequence);
 					ESP_LOGI(TAG, "NVS_write_int16=%d, presetFrequence=%d current_freq=%f", err, presetFrequence, current_freq);
+				}
+
+				if ( strcmp (id, "minus1.0-request") == 0) {
+					double min_freq;
+#if CONFIG_FM_BAND_US
+					min_freq = TEA5767_US_FM_BAND_MIN;
+#endif
+#if CONFIG_FM_BAND_JP
+					min_freq = TEA5767_JP_FM_BAND_MIN;
+#endif
+					if (current_freq - 1.0 >= min_freq) {
+						current_freq = current_freq - 1.0;
+						radio_set_frequency(&ctrl_data, current_freq);
+					}
+				}
+
+				if ( strcmp (id, "plus1.0-request") == 0) {
+					double max_freq;
+#if CONFIG_FM_BAND_US
+					max_freq = TEA5767_US_FM_BAND_MAX;
+#endif
+#if CONFIG_FM_BAND_JP
+					max_freq = TEA5767_JP_FM_BAND_MAX;
+#endif
+					if (current_freq + 1.0 <= max_freq) {
+						current_freq = current_freq + 1.0;
+						radio_set_frequency(&ctrl_data, current_freq);
+					}
+				}
+
+				if ( strcmp (id, "minus0.1-request") == 0) {
+					double min_freq;
+#if CONFIG_FM_BAND_US
+					min_freq = TEA5767_US_FM_BAND_MIN;
+#endif
+#if CONFIG_FM_BAND_JP
+					min_freq = TEA5767_JP_FM_BAND_MIN;
+#endif
+					if (current_freq - 0.1 >= min_freq) {
+						current_freq = current_freq - 0.1;
+						radio_set_frequency(&ctrl_data, current_freq);
+					}
+				}
+
+				if ( strcmp (id, "plus0.1-request") == 0) {
+					double max_freq;
+#if CONFIG_FM_BAND_US
+					max_freq = TEA5767_US_FM_BAND_MAX;
+#endif
+#if CONFIG_FM_BAND_JP
+					max_freq = TEA5767_JP_FM_BAND_MAX;
+#endif
+					if (current_freq + 0.1 <= max_freq) {
+						current_freq = current_freq + 0.1;
+						radio_set_frequency(&ctrl_data, current_freq);
+					}
 				}
 
 			} // end if

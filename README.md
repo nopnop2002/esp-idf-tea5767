@@ -87,6 +87,12 @@ Refer to tea5767.h.
  Press the * key to record the current radio station in NVS.   
  At boot time, it read from NVS and set to the current Radio station.   
 
+- Change frequence   
+ Press the D key to decrease the frequence by -1.0Mhz.   
+ Press the U key to increase the frequence by +1.0Mhz.   
+ Press the d key to decrease the frequence by -0.1Mhz.   
+ Press the u key to increase the frequencey by +0.1Mhz.   
+
 - Clear preset   
  ```idf.py erase-flash```   
 
