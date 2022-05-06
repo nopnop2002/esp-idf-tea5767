@@ -41,15 +41,19 @@ idf.py flash
 
 # Wireing
 
-|TEA5767||ESP32|ESP32-S2/S3|ESP32-C3|
-|:-:|:-:|:-:|:-:|:-:|
-|SCL|--|GPIO22|GPIO4|GPIO19|
-|SDA|--|GPIO21|GPIO3|GPIO18|
-|GND|--|GND|GND|GND|
-|VCC|--|5V|5V|5V|
+|TEA5767||ESP32|ESP32-S2/S3|ESP32-C3||
+|:-:|:-:|:-:|:-:|:-:|:-:|
+|SCL|--|GPIO22|GPIO4|GPIO19|(*1)|
+|SDA|--|GPIO21|GPIO3|GPIO18|(*1)|
+|GND|--|GND|GND|GND||
+|VCC|--|3.3V|3.3V|3.3V|(*2)|
 
-__You can change it to any pin using menuconfig.__   
+(*1)   
+You can change it to any pin using menuconfig.   
 __But it may not work with other GPIOs.__
+
+(*2)   
+The marking is +5V, but it works at 3.3V.   
 
 
 # API
