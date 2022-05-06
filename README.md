@@ -16,32 +16,11 @@ I used an AC power cable as extended antena.
 ![tea5767-3](https://user-images.githubusercontent.com/6020549/146294473-9b514cf8-ca94-49d8-a723-ec67185ec119.JPG)
 
 
-# Installation for ESP32
-
+# Installation
 ```
 git clone https://github.com/nopnop2002/esp-idf-tea5767
 cd esp-idf-tea5767
-idf.py set-target esp32
-idf.py menuconfig
-idf.py flash
-```
-
-# Installation for ESP32-S2
-
-```
-git clone https://github.com/nopnop2002/esp-idf-tea5767
-cd esp-idf-tea5767
-idf.py set-target esp32s2
-idf.py menuconfig
-idf.py flash
-```
-
-# Installation for ESP32-C3
-
-```
-git clone https://github.com/nopnop2002/esp-idf-tea5767
-cd esp-idf-tea5767
-idf.py set-target esp32c3
+idf.py set-target {esp32/esp32s2/esp32s3/esp32c3}
 idf.py menuconfig
 idf.py flash
 ```
@@ -62,12 +41,12 @@ idf.py flash
 
 # Wireing
 
-|TEA5767||ESP32|ESP32-S2|ESP32-C3|
+|TEA5767||ESP32|ESP32-S2/S3|ESP32-C3|
 |:-:|:-:|:-:|:-:|:-:|
-|SCL|--|GPIO22|GPIO12|GPIO9|
-|SDA|--|GPIO21|GPIO11|GPIO10|
+|SCL|--|GPIO22|GPIO4|GPIO19|
+|SDA|--|GPIO21|GPIO3|GPIO18|
 |GND|--|GND|GND|GND|
-|VCC|--|3.3V|3.3V|3.3V|
+|VCC|--|5V|5V|5V|
 
 __You can change it to any pin using menuconfig.__   
 __But it may not work with other GPIOs.__

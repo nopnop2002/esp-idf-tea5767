@@ -150,7 +150,7 @@ typedef struct tea5767_ctrl
 } TEA5767_t;
 
 
-#define delay_ms(delay_time) vTaskDelay(delay_time/portTICK_RATE_MS)
+#define delay_ms(delay_time) vTaskDelay(delay_time/portTICK_PERIOD_MS)
 
 int radio_hilo_optimal (TEA5767_t * ctrl_data, unsigned long freq);
 int radio_ready (TEA5767_t * ctrl_data, unsigned char *buf);
