@@ -3,6 +3,11 @@ TEA5767 FM Stereo Radio Driver for esp-idf.
 
 I ported from [here](https://github.com/andykarpov/TEA5767).   
 
+# Software requirements
+ESP-IDF V4.4/V5.0.   
+ESP-IDF V5.0 is required when using ESP32-C2.   
+ESP-IDF V5.1 is required when using ESP32-C6.   
+
 # Hardware requirements   
 TEA5767 FM Stereo Radio Module.   
 I bought this on AliExpress about $4.   
@@ -41,10 +46,10 @@ idf.py flash
 
 # Wireing
 
-|TEA5767||ESP32|ESP32-S2/S3|ESP32-C3||
+|TEA5767||ESP32|ESP32-S2/S3|ESP32-C2/C3/C6||
 |:-:|:-:|:-:|:-:|:-:|:-:|
-|SCL|--|GPIO22|GPIO4|GPIO19|(*1)|
-|SDA|--|GPIO21|GPIO3|GPIO18|(*1)|
+|SCL|--|GPIO22|GPIO4|GPIO6|(*1)|
+|SDA|--|GPIO21|GPIO3|GPIO5|(*1)|
 |GND|--|GND|GND|GND||
 |VCC|--|3.3V|3.3V|3.3V|(*2)|
 
