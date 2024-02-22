@@ -4,7 +4,7 @@ TEA5767 FM Stereo Radio Driver for esp-idf.
 I ported from [here](https://github.com/andykarpov/TEA5767).   
 
 # Software requirements
-ESP-IDF V4.4/V5.0.   
+ESP-IDF V4.4/V5.x.   
 ESP-IDF V5.0 is required when using ESP32-C2.   
 ESP-IDF V5.1 is required when using ESP32-C6.   
 
