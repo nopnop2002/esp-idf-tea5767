@@ -25,7 +25,7 @@ I used an AC power cable as extended antena.
 ```
 git clone https://github.com/nopnop2002/esp-idf-tea5767
 cd esp-idf-tea5767
-idf.py set-target {esp32/esp32s2/esp32s3/esp32c3}
+idf.py set-target {esp32/esp32s2/esp32s3/esp32c2/esp32c3/esp32c6}
 idf.py menuconfig
 idf.py flash
 ```
