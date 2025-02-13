@@ -25,7 +25,6 @@ I used an AC power cable as extended antena.
 ```
 git clone https://github.com/nopnop2002/esp-idf-tea5767
 cd esp-idf-tea5767
-idf.py set-target {esp32/esp32s2/esp32s3/esp32c2/esp32c3/esp32c6}
 idf.py menuconfig
 idf.py flash
 ```
@@ -83,6 +82,31 @@ Refer to tea5767.h.
 - Clear preset   
  ```idf.py erase-flash```   
 
+# How to use this component in your project   
+Create idf_component.yml in the same directory as main.c.   
+```
+YourProject --+-- CMakeLists.txt
+              +-- main --+-- main.c
+                         +-- CMakeLists.txt
+                         +-- idf_component.yml
+```
+
+Contents of idf_component.yml.
+```
+dependencies:
+  nopnop2002/tea5767:
+    path: components/tea5767/
+    git: https://github.com/nopnop2002/esp-idf-tea5767.git
+```
+
+When you build a projects esp-idf will automaticly fetch repository to managed_components dir and link with your code.   
+```
+YourProject --+-- CMakeLists.txt
+              +-- main --+-- main.c
+              |          +-- CMakeLists.txt
+              |          +-- idf_component.yml
+              +-- managed_components ----- nopnop2002__tea5767
+```
 
 # Reference   
 https://github.com/nopnop2002/esp-idf-fm-radio
