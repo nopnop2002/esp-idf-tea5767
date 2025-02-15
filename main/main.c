@@ -334,7 +334,7 @@ void app_main()
 				current_freq = floor (radio_frequency_available (&ctrl_data, buf) / 100000 + .5) / 10;
 				int stereo = radio_stereo(&ctrl_data, buf);
 				int signal_level = radio_signal_level(&ctrl_data, buf);
-				ESP_LOGI(TAG, "current_freq=%f stereo=%d signal_level=%d/15", current_freq, stereo, signal_level);
+				ESP_LOGI(TAG, "current_freq=%f stereo=%d signal_level=%d/15 mute=%d", current_freq, stereo, signal_level, ctrl_data.mute);
 			}
 
 			if (search_mode == 1) {
@@ -419,6 +419,12 @@ void app_main()
 					current_freq = preset[index].frequency;
 					radio_set_frequency(&ctrl_data, current_freq);
 				}
+			} else if (ch == 0x4d) { // M
+				ctrl_data.mute = false;
+				radio_set_frequency(&ctrl_data, current_freq);
+			} else if (ch == 0x6d) { // m
+				ctrl_data.mute = true;
+				radio_set_frequency(&ctrl_data, current_freq);
 			} // end if
 		}
 	} // end while

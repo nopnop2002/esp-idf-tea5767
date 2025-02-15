@@ -44,6 +44,7 @@ void radio_init(TEA5767_t * ctrl_data, int16_t sda, int16_t scl) {
 	ctrl_data->japan_band = 0;
 	ctrl_data->pllref = 0;
 	ctrl_data->HILO = 1;
+	ctrl_data->mute = false;
 
 	//unsigned long freq = 87500000;
 	//set_frequency((float) freq / 1000000);
@@ -126,6 +127,9 @@ void radio_set_frequency_internal (TEA5767_t * ctrl_data, int hilo, double freq)
 		div = (4 * (freq * 1000 - 225)) / 32.768;
 
 	buffer[0] = (div >> 8) & 0x3f;
+	if (ctrl_data->mute)
+		buffer[0] |= TEA5767_MUTE;
+
 	buffer[1] = div & 0xff;
 
 	i2c_cmd_handle_t cmd = i2c_cmd_link_create();
@@ -212,12 +216,11 @@ void radio_search_up (TEA5767_t * ctrl_data, unsigned char *buf) {
 	div = (4 * (((freq_av + 98304) / 1000000) * 1000000 + 225000)) / 32768;
 
 	buf[0] = (div >> 8) & 0x3f;
-	buf[1] = div & 0xff;
-
 	buf[0] |= TEA5767_SEARCH;
 
-	buf[2] = 0;
+	buf[1] = div & 0xff;
 
+	buf[2] = 0;
 	buf[2] |= TEA5767_SEARCH_UP;
 	buf[2] |= TEA5767_SRCH_MID_LVL;
 	//buf[2] |= TEA5767_SRCH_HIGH_LVL;
@@ -260,9 +263,9 @@ void radio_search_up (TEA5767_t * ctrl_data, unsigned char *buf) {
 	i2c_master_stop(cmd);
 	esp_err_t espRc = i2c_master_cmd_begin(I2C_NUM, cmd, 10/portTICK_PERIOD_MS);
 	if (espRc == ESP_OK) {
-		ESP_LOGD(TAG, "radio_set_frequency_internal successfully");
+		ESP_LOGD(TAG, "radio_search_up successfully");
 	} else {
-		ESP_LOGE(TAG, "radio_set_frequency_internal failed. code: 0x%.2X", espRc);
+		ESP_LOGE(TAG, "radio_search_up failed. code: 0x%.2X", espRc);
 	}
 	i2c_cmd_link_delete(cmd);
 
@@ -279,9 +282,9 @@ void radio_search_down (TEA5767_t * ctrl_data, unsigned char *buf)
 	div = (4 * (((freq_av - 98304) / 1000000) * 1000000 + 225000)) / 32768;
 
 	buf[0] = (div >> 8) & 0x3f;
-	buf[1] = div & 0xff;
-
 	buf[0] |= TEA5767_SEARCH;
+
+	buf[1] = div & 0xff;
 
 	buf[2] = 0;
 
@@ -325,9 +328,9 @@ void radio_search_down (TEA5767_t * ctrl_data, unsigned char *buf)
 	i2c_master_stop(cmd);
 	esp_err_t espRc = i2c_master_cmd_begin(I2C_NUM, cmd, 10/portTICK_PERIOD_MS);
 	if (espRc == ESP_OK) {
-		ESP_LOGD(TAG, "radio_set_frequency_internal successfully");
+		ESP_LOGD(TAG, "radio_search_down successfully");
 	} else {
-		ESP_LOGE(TAG, "radio_set_frequency_internal failed. code: 0x%.2X", espRc);
+		ESP_LOGE(TAG, "radio_search_down failed. code: 0x%.2X", espRc);
 	}
 	i2c_cmd_link_delete(cmd);
 

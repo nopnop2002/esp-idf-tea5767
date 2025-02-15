@@ -137,16 +137,17 @@
 typedef struct tea5767_ctrl
 {
 	int _address;
-  int port1;
-  int port2;
-  int high_cut;
-  int st_noise;
-  int soft_mute;
-  int japan_band;
-  int deemph_75;
-  int pllref;
-  int xtal_freq;
+	int port1;
+	int port2;
+	int high_cut;
+	int st_noise;
+	int soft_mute;
+	int japan_band;
+	int deemph_75;
+	int pllref;
+	int xtal_freq;
 	int HILO;
+	bool mute;
 } TEA5767_t;
 
 
