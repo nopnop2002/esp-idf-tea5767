@@ -42,7 +42,7 @@ menu "TEA5767 Configuration"
 		config FM_BAND_US
 			bool "US/Europe (87.5 MHz to 108 MHz)"
 		config FM_BAND_JP
-			bool "Japan (76 MHz to 91 MHz)"
+			bool "Japan (76.1 MHz to 94.9 MHz)"
 	endchoice
 
 endmenu
