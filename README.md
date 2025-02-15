@@ -29,7 +29,7 @@ idf.py menuconfig
 idf.py flash
 ```
 
-# Configuration   
+# Configuration for Radio   
 
 ![config-top](https://user-images.githubusercontent.com/6020549/146292879-4be4bc9b-6a2e-4cb9-b0a8-bdad5fae8615.jpg)
 ![config-tea5767](https://user-images.githubusercontent.com/6020549/146292884-e29e45a4-4f99-4314-bb20-4f03bacbe2f7.jpg)
@@ -62,47 +62,6 @@ The PCB marking is +5V, but it works at 3.3V.
 
 # API
 Refer to tea5767.h.   
-
-# Radio staion preset   
-You have to edit preset.def in preset directory.   
-Preset.def have radio frequency which you want to select.   
-After which, Build this project and flash it to board.   
-
-example of preset.def.   
-```
-# This is the radio station preset definition file
-# name,frequency; comment
-ZIP-FM,77.8; JOQV-FM 10kw
-FM-AICHI,80.7; JOCU-FM 10kw
-FM-NHK,82.5; JOCK-FM 10kw
-```
-
-# How to use   
-
-- Search radio station   
- \+ key to search for radio stations upwards.   
- \- key to search for radio stations downwards.   
-
-- Preset radio station   
- ? key to display a list of presets.   
- 1 key to select the first preset.   
- 2 key to select the second preset.   
- 9 key to select the 9th preset.   
- \* key to record the current radio station in NVS.   
- At boot time, it read from NVS and set to the current Radio station.   
-
-- Change frequence   
- D key to decrease the frequence by -1.0Mhz.   
- U key to increase the frequence by +1.0Mhz.   
- d key to decrease the frequence by -0.1Mhz.   
- u key to increase the frequence by +0.1Mhz.   
-
-- Mute audio    
- m key to mute L and R audio.   
- M key to unmute L and R audio.   
-
-- Clear NVS   
- ```idf.py erase-flash```   
 
 # How to use this component in your project   
 Create idf_component.yml in the same directory as main.c.   
