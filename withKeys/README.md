@@ -10,7 +10,7 @@ idf.py flash
 ```
 
 # How to use   
-- Radio staion preset
+- Radio staion preset   
  You have to edit preset.def in preset directory.   
  Preset.def have radio frequency which you want to select.   
  After which, Build this project and flash it to board.   
