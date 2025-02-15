@@ -36,7 +36,6 @@ Use GPIO that does not overlap with TEA1637.
 
 (*1)   
 You can change it to any pin using menuconfig.   
-__But it may not work with other GPIOs.__
 
 
 # How to use   
