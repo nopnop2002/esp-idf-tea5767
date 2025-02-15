@@ -61,6 +61,9 @@ The PCB marking is +5V, but it works at 3.3V.
 # Operate the radio using the keyboard   
 Read [this](https://github.com/nopnop2002/esp-idf-tea5767/tree/main/withKeys).   
 
+# Display frequency and signal level on 8 segment LCD   
+Read [this](https://github.com/nopnop2002/esp-idf-tea5767/tree/main/toTm1637).   
+
 # API
 Refer to tea5767.h.   
 
