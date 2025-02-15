@@ -34,6 +34,7 @@ FM-NHK,82.5; JOCK-FM 10kw
  9 key to select the 9th preset.   
  \* key to record the current radio station in NVS.   
  At boot time, it read from NVS and set to the current Radio station.   
+ ```idf.py erase-flash``` if clearing NVS.   
 
 - Change frequence   
  D key to decrease the frequence by -1.0Mhz.   
@@ -45,6 +46,4 @@ FM-NHK,82.5; JOCK-FM 10kw
  m key to mute L and R audio.   
  M key to unmute L and R audio.   
 
-- Clear NVS   
- ```idf.py erase-flash```   
 
