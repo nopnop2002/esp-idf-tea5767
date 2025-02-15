@@ -64,9 +64,9 @@ The PCB marking is +5V, but it works at 3.3V.
 Refer to tea5767.h.   
 
 # Radio staion preset   
-You have to edit preset.def in preset directory.
-Preset.def have radio frequency which you want to select.
-After which, Build this project and flash it to board.
+You have to edit preset.def in preset directory.   
+Preset.def have radio frequency which you want to select.   
+After which, Build this project and flash it to board.   
 
 example of preset.def.   
 ```
