@@ -98,8 +98,8 @@ FM-NHK,82.5; JOCK-FM 10kw
  u key to increase the frequence by +0.1Mhz.   
 
 - Mute audio    
- m key to L and R audio are muted.   
- M key to L and R audio are not muted.   
+ m key to mute L and R audio.   
+ M key to unmute L and R audio.   
 
 - Clear NVS   
  ```idf.py erase-flash```   
