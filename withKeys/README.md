@@ -29,8 +29,8 @@ FM-NHK,82.5; JOCK-FM 10kw
 
 - Select a preset radio station   
  ? key to display a list of presets.   
- 1 key to select the first preset.   
- 2 key to select the second preset.   
+ 0 key to select the first preset.   
+ 1 key to select the second preset.   
  9 key to select the 9th preset.   
  \* key to record the current radio station in NVS.   
  At boot time, it read from NVS and set to the current Radio station.   
