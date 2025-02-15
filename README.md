@@ -80,8 +80,8 @@ FM-NHK,82.5; JOCK-FM 10kw
 # How to use   
 
 - Search radio station   
- + key to search for radio stations upwards.   
- - key to search for radio stations downwards.   
+ \+ key to search for radio stations upwards.   
+ \- key to search for radio stations downwards.   
 
 - Preset radio station   
  ? key to display a list of presets.   
