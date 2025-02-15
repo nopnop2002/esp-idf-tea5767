@@ -50,7 +50,7 @@ idf.py flash
 |SCL|--|GPIO22|GPIO4|GPIO6|(*1)|
 |SDA|--|GPIO21|GPIO3|GPIO5|(*1)|
 |GND|--|GND|GND|GND||
-|VCC|--|3.3V|3.3V|3.3V|(*2)|
+|VCC(*2)|--|3.3V|3.3V|3.3V||
 
 (*1)   
 You can change it to any pin using menuconfig.   
