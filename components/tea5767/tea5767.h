@@ -98,9 +98,9 @@
 #define TEA5767_US_FM_BAND_MIN   87.5
 #define TEA5767_US_FM_BAND_MAX   108.0
 
-/* Japanese FM band (76 MHz to 91 MHz) FM Band */
-#define TEA5767_JP_FM_BAND_MIN   76.0
-#define TEA5767_JP_FM_BAND_MAX   91.0
+/* Japanese FM band (76.1 MHz to 94.9 MHz) */
+#define TEA5767_JP_FM_BAND_MIN   76.1
+#define TEA5767_JP_FM_BAND_MAX   94.9
 
 /*****************************
  * Read mode register values *
