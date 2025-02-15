@@ -16,7 +16,7 @@ void led(void * arg)
 {
 	ESP_LOGI(TAG, "Start");
 	tm1637_led_t * lcd = tm1637_init(CONFIG_TM1637_CLK_PIN, CONFIG_TM1637_DIO_PIN);
-	tm1637_set_brightness(lcd, 7);
+	tm1637_set_brightness(lcd, CONFIG_TM1637_BRIGHTNESS);
 
 	while (1) {
 		STATUS_t status;
