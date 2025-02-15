@@ -27,7 +27,7 @@ FM-NHK,82.5; JOCK-FM 10kw
  \+ key to search for radio stations upwards.   
  \- key to search for radio stations downwards.   
 
-- Preset radio station   
+- Select a preset radio station   
  ? key to display a list of presets.   
  1 key to select the first preset.   
  2 key to select the second preset.   
