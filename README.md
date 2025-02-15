@@ -63,23 +63,41 @@ The PCB marking is +5V, but it works at 3.3V.
 # API
 Refer to tea5767.h.   
 
+# Radio staion preset   
+You have to edit preset.def in preset directory.
+Preset.def have radio frequency which you want to select.
+After which, Build this project and flash it to board.
+
+example of preset.def.   
+```
+# This is the radio station preset definition file
+# name,frequency; comment
+ZIP-FM,77.8; JOQV-FM 10kw
+FM-AICHI,80.7; JOCU-FM 10kw
+FM-NHK,82.5; JOCK-FM 10kw
+```
+
 # How to use   
 
 - Search radio station   
- Press the + key to search for radio stations upwards.   
- Press the - key to search for radio stations downwards.   
+ + key to search for radio stations upwards.   
+ - key to search for radio stations downwards.   
 
 - Preset radio station   
- Press the * key to record the current radio station in NVS.   
+ ? key to display a list of presets.   
+ 1 key to select the first preset.   
+ 2 key to select the second preset.   
+ 9 key to select the 9threset.   
+ * key to record the current radio station in NVS.   
  At boot time, it read from NVS and set to the current Radio station.   
 
 - Change frequence   
- Press the D key to decrease the frequence by -1.0Mhz.   
- Press the U key to increase the frequence by +1.0Mhz.   
- Press the d key to decrease the frequence by -0.1Mhz.   
- Press the u key to increase the frequence by +0.1Mhz.   
+ D key to decrease the frequence by -1.0Mhz.   
+ U key to increase the frequence by +1.0Mhz.   
+ d key to decrease the frequence by -0.1Mhz.   
+ u key to increase the frequence by +0.1Mhz.   
 
-- Clear preset   
+- Clear NVS   
  ```idf.py erase-flash```   
 
 # How to use this component in your project   
