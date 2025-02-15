@@ -88,7 +88,7 @@ FM-NHK,82.5; JOCK-FM 10kw
  1 key to select the first preset.   
  2 key to select the second preset.   
  9 key to select the 9threset.   
- * key to record the current radio station in NVS.   
+ \* key to record the current radio station in NVS.   
  At boot time, it read from NVS and set to the current Radio station.   
 
 - Change frequence   
