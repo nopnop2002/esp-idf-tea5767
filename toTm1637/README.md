@@ -32,11 +32,13 @@ Use GPIO that does not overlap with TEA1637.
 ||CLK|--|GPIO17|GPIO12|GPIO4|(*1)|
 ||DIO|--|GPIO16|GPIO11|GPIO3|(*1)|
 |GND|GND|--|GND|GND|GND||
-|VCC|VCC|--|3.3V|3.3V|3.3V||
+|VCC(*2)|VCC|--|3.3V|3.3V|3.3V||
 
 (*1)   
 You can change it to any pin using menuconfig.   
 
+(*2)   
+The PCB marking is +5V, but it works at 3.3V.   
 
 # How to use   
 Same as [this](https://github.com/nopnop2002/esp-idf-tea5767/tree/main/withKeys).   
