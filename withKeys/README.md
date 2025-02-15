@@ -14,7 +14,7 @@ idf.py flash
  You have to edit preset.def in preset directory.   
  Preset.def have radio frequency which you want to select.   
  After which, Build this project and flash it to board.   
- example of preset.def.   
+ example of preset.def:   
 ```
 # This is the radio station preset definition file
 # name,frequency; comment
