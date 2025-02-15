@@ -40,7 +40,7 @@ idf.py flash
  GPIO number(IOxx) to SDA.
 - CONFIG_FM_BAND   
  In US/EU it ranges from 87.5 MHz to 108 MHz.   
- In Japan it ranges from 76 MHz to 91 MHz.   
+ In Japan it ranges from 76.1 MHz to 94.9 MHz.   
  Used when wrapping in a search.   
 
 # Wireing
