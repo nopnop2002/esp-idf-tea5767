@@ -24,7 +24,7 @@ I used an AC power cable as extended antena.
 # Installation
 ```
 git clone https://github.com/nopnop2002/esp-idf-tea5767
-cd esp-idf-tea5767
+cd esp-idf-tea5767/withKey
 idf.py menuconfig
 idf.py flash
 ```

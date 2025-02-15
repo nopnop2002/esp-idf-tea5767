@@ -19,10 +19,10 @@
 
 #include "tea5767.h"
 
-static char *TAG = "MAIN";
+static char *TAG = "RADIO";
 static char *KEY = "preset_freq";
 
-QueueHandle_t xQueue;
+extern QueueHandle_t xQueueCommand;
 
 #define MAX_PRESET 20
 #define MAX_NAME 32
@@ -30,25 +30,6 @@ typedef struct {
 	char name[MAX_NAME+1];
 	float frequency;
 } PRESET_t;
-
-void keyin(void *pvParameters)
-{
-	ESP_LOGI(pcTaskGetName(NULL), "Start");
-
-	uint16_t ch;
-	while (1) {
-		ch = fgetc(stdin);
-		if (ch == 0xffff) {
-			vTaskDelay(10);
-			continue;
-		}
-		ESP_LOGD(pcTaskGetName(NULL), "ch=0x%x", ch);
-		xQueueSend(xQueue, &ch, portMAX_DELAY);
-	}
-
-	/* Never reach */
-	vTaskDelete( NULL );
-}
 
 esp_err_t NVS_read_int16(char * key, int16_t *value) {
 	// Check key length
@@ -127,63 +108,6 @@ esp_err_t NVS_write_int16(char * key, int16_t value) {
 	return err;
 }
 
-static void listSPIFFS(char * path) {
-	DIR* dir = opendir(path);
-	assert(dir != NULL);
-	while (true) {
-		struct dirent*pe = readdir(dir);
-		if (!pe) break;
-		ESP_LOGI(__FUNCTION__,"d_name=%s d_ino=%d d_type=%x", pe->d_name,pe->d_ino, pe->d_type);
-	}
-	closedir(dir);
-}
-
-esp_err_t mountSPIFFS(char * path, char * label, int max_files) {
-	esp_vfs_spiffs_conf_t conf = {
-		.base_path = path,
-		.partition_label = label,
-		.max_files = max_files,
-		.format_if_mount_failed = true
-	};
-
-	// Use settings defined above to initialize and mount SPIFFS filesystem.
-	// Note: esp_vfs_spiffs_register is an all-in-one convenience function.
-	esp_err_t ret = esp_vfs_spiffs_register(&conf);
-
-	if (ret != ESP_OK) {
-		if (ret ==ESP_FAIL) {
-			ESP_LOGE(TAG, "Failed to mount or format filesystem");
-		} else if (ret== ESP_ERR_NOT_FOUND) {
-			ESP_LOGE(TAG, "Failed to find SPIFFS partition");
-		} else {
-			ESP_LOGE(TAG, "Failed to initialize SPIFFS (%s)",esp_err_to_name(ret));
-		}
-		return ret;
-	}
-
-#if 0
-	ESP_LOGI(TAG, "Performing SPIFFS_check().");
-	ret = esp_spiffs_check(conf.partition_label);
-	if (ret != ESP_OK) {
-		ESP_LOGE(TAG, "SPIFFS_check() failed (%s)", esp_err_to_name(ret));
-		return ret;
-	} else {
-			ESP_LOGI(TAG, "SPIFFS_check() successful");
-	}
-#endif
-
-	size_t total = 0, used = 0;
-	ret = esp_spiffs_info(conf.partition_label, &total, &used);
-	if (ret != ESP_OK) {
-		ESP_LOGE(TAG,"Failed to get SPIFFS partition information (%s)",esp_err_to_name(ret));
-	} else {
-		ESP_LOGI(TAG,"Mount %s to %s success", path, label);
-		ESP_LOGI(TAG,"Partition size: total: %d, used: %d", total, used);
-	}
-
-	return ret;
-}
-
 static int parseLine(char *line, int size1, int size2, char arr[size1][size2])
 {
 	ESP_LOGD(TAG, "line=[%s]", line);
@@ -234,10 +158,10 @@ static int parseLine(char *line, int size1, int size2, char arr[size1][size2])
 	return dst;
 }
 
-static int readPresetFile(PRESET_t *preset, size_t maxLine, size_t maxText) {
+static int readPresetFile(char *filename, PRESET_t *preset, size_t maxLine, size_t maxText) {
 	int readLine = 0;
 	ESP_LOGI(pcTaskGetName(0), "Reading file:maxText=%d",maxText);
-	FILE* f = fopen("/preset/preset.def", "r");
+	FILE* f = fopen(filename, "r");
 	if (f == NULL) {
 		ESP_LOGE(__FUNCTION__, "Failed to open define file for reading");
 		return 0;
@@ -268,27 +192,16 @@ static int readPresetFile(PRESET_t *preset, size_t maxLine, size_t maxText) {
 	fclose(f);
 	return readLine;
 }
-void app_main()
-{
-	// Initialize SPIFFS
-	// Maximum files that could be open at the same time is 1.
-	ESP_ERROR_CHECK(mountSPIFFS("/preset", "storage", 1));
-	listSPIFFS("/preset/");
 
-	// Initialize NVS
-	esp_err_t err = nvs_flash_init();
-	if (err == ESP_ERR_NVS_NO_FREE_PAGES || err == ESP_ERR_NVS_NEW_VERSION_FOUND) {
-		// NVS partition was truncated and needs to be erased
-		// Retry nvs_flash_init
-		ESP_ERROR_CHECK(nvs_flash_erase());
-		err = nvs_flash_init();
-	}
-	ESP_ERROR_CHECK( err );
+void radio(void *pvParameters)
+{
+	char *base_path = (char *)pvParameters;
+	ESP_LOGI(TAG, "Start base_path=[%s]", base_path);
 
 	// Reading default frequency
 	int16_t presetFrequence = 0;
 	double current_freq;
-	err = NVS_read_int16(KEY, &presetFrequence);
+	esp_err_t err = NVS_read_int16(KEY, &presetFrequence);
 	ESP_LOGI(TAG, "NVS_read_int16=%d presetFrequence=%d", err, presetFrequence);
 	if (err == ESP_OK) {
 		current_freq = presetFrequence / 10.0; // go to preset frequency
@@ -300,22 +213,32 @@ void app_main()
 #endif
 	}
 
+    // Set frequency limit
+    double min_freq;
+    double max_freq;
+#if CONFIG_FM_BAND_US
+        min_freq = TEA5767_US_FM_BAND_MIN;
+        max_freq = TEA5767_US_FM_BAND_MAX;
+#endif
+#if CONFIG_FM_BAND_JP
+        min_freq = TEA5767_JP_FM_BAND_MIN;
+        max_freq = TEA5767_JP_FM_BAND_MAX;
+#endif
+
 	// Reading preset frequency
+	char filename[64];
+	sprintf(filename, "%s/preset.def", base_path);
+	ESP_LOGI(TAG, "filename=[%s]", filename);
 	PRESET_t preset[MAX_PRESET];
-	int presets = readPresetFile(preset, MAX_PRESET, MAX_NAME);
+	int presets = readPresetFile(filename, preset, MAX_PRESET, MAX_NAME);
 
-	// Create Queue
-	xQueue = xQueueCreate(10, sizeof(char));
-	configASSERT( xQueue );
-
-	// Create Task
-	xTaskCreate(keyin, "KEYIN", 1024*4, NULL, 2, NULL);
-
+	// Initialize radio
 	TEA5767_t ctrl_data;
 	ESP_LOGI(TAG, "CONFIG_SDA_GPIO=%d",CONFIG_SDA_GPIO);
 	ESP_LOGI(TAG, "CONFIG_SCL_GPIO=%d",CONFIG_SCL_GPIO);
 	radio_init(&ctrl_data, CONFIG_SDA_GPIO, CONFIG_SCL_GPIO);
 
+	// Set current frequency
 	ESP_LOGI(TAG, "current_freq=%f", current_freq);
 	radio_set_frequency(&ctrl_data, current_freq);
 
@@ -325,7 +248,7 @@ void app_main()
 
 	while(1) {
 		char ch;
-		BaseType_t readBytes = xQueueReceive(xQueue, &ch, 1000/portTICK_PERIOD_MS);
+		BaseType_t readBytes = xQueueReceive(xQueueCommand, &ch, 1000/portTICK_PERIOD_MS);
 		ESP_LOGD(TAG, "readBytes=%d", readBytes);
 		if (readBytes == 0) {
 			//radio_read_status(&ctrl_data, buf);
@@ -361,49 +284,21 @@ void app_main()
 				err = NVS_write_int16(KEY, presetFrequence);
 				ESP_LOGI(TAG, "NVS_write_int16=%d, presetFrequence=%d current_freq=%f", err, presetFrequence, current_freq);
 			} else if (ch == 0x44) { // D
-				double min_freq;
-#if CONFIG_FM_BAND_US
-				min_freq = TEA5767_US_FM_BAND_MIN;
-#endif
-#if CONFIG_FM_BAND_JP
-				min_freq = TEA5767_JP_FM_BAND_MIN;
-#endif
 				if (current_freq - 1.0 >= min_freq) {
 					current_freq = current_freq - 1.0;
 					radio_set_frequency(&ctrl_data, current_freq);
 				}
 			} else if (ch == 0x55) { // U
-				double max_freq;
-#if CONFIG_FM_BAND_US
-				max_freq = TEA5767_US_FM_BAND_MAX;
-#endif
-#if CONFIG_FM_BAND_JP
-				max_freq = TEA5767_JP_FM_BAND_MAX;
-#endif
 				if (current_freq + 1.0 <= max_freq) {
 					current_freq = current_freq + 1.0;
 					radio_set_frequency(&ctrl_data, current_freq);
 				}
 			} else if (ch == 0x64) { // d
-				double min_freq;
-#if CONFIG_FM_BAND_US
-				min_freq = TEA5767_US_FM_BAND_MIN;
-#endif
-#if CONFIG_FM_BAND_JP
-				min_freq = TEA5767_JP_FM_BAND_MIN;
-#endif
 				if (current_freq - 0.1 >= min_freq) {
 					current_freq = current_freq - 0.1;
 					radio_set_frequency(&ctrl_data, current_freq);
 				}
 			} else if (ch == 0x75) { // u
-				double max_freq;
-#if CONFIG_FM_BAND_US
-				max_freq = TEA5767_US_FM_BAND_MAX;
-#endif
-#if CONFIG_FM_BAND_JP
-				max_freq = TEA5767_JP_FM_BAND_MAX;
-#endif
 				if (current_freq + 0.1 <= max_freq) {
 					current_freq = current_freq + 0.1;
 					radio_set_frequency(&ctrl_data, current_freq);
@@ -418,6 +313,8 @@ void app_main()
 					ESP_LOGI(TAG, "preset[%d] name=[%s] frequency=%f", index, preset[index].name, preset[index].frequency);
 					current_freq = preset[index].frequency;
 					radio_set_frequency(&ctrl_data, current_freq);
+				} else {
+					ESP_LOGW(TAG, "preset[%d] not found", index);
 				}
 			} else if (ch == 0x4d) { // M
 				ctrl_data.mute = false;
@@ -429,4 +326,6 @@ void app_main()
 		}
 	} // end while
 
+	// Never reach here
+	vTaskDelete(NULL);
 }
