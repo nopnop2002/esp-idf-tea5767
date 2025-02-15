@@ -59,9 +59,8 @@ __But it may not work with other GPIOs.__
 (*2)   
 The PCB marking is +5V, but it works at 3.3V.   
 
-# Example   
-- Operate the radio using the keyboard   
- Read [this](https://github.com/nopnop2002/esp-idf-tea5767/tree/main/withKeys).   
+# Operate the radio using the keyboard   
+Read [this](https://github.com/nopnop2002/esp-idf-tea5767/tree/main/withKeys).   
 
 # API
 Refer to tea5767.h.   
