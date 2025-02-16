@@ -67,16 +67,16 @@ FM-NHK,82.5; JOCK-FM 10kw
 	If you want to erase the defaults, use ```idf.py Erase-flash```.   
 
 - Change frequence   
- Decrease the frequence by -1.0Mhz.   
- ```curl -X POST http://esp32-server.local:8080/api/freq/--```   
- Increase the frequence by +1.0Mhz.   
- ```curl -X POST http://esp32-server.local:8080/api/freq/++```   
- Decrease the frequence by -0.1Mhz.   
- ```curl -X POST http://esp32-server.local:8080/api/freq/-```   
- Increase the frequence by +0.1Mhz.   
- ```curl -X POST http://esp32-server.local:8080/api/freq/+```   
- Setting the frequency directly.   
- ```curl -X POST http://esp32-server.local:8080/api/freq/80.7```   
+	- Decrease the frequence by -1.0Mhz.   
+	```curl -X POST http://esp32-server.local:8080/api/freq/--```   
+	- Increase the frequence by +1.0Mhz.   
+	```curl -X POST http://esp32-server.local:8080/api/freq/++```   
+	- Decrease the frequence by -0.1Mhz.   
+	```curl -X POST http://esp32-server.local:8080/api/freq/-```   
+	- Increase the frequence by +0.1Mhz.   
+	```curl -X POST http://esp32-server.local:8080/api/freq/+```   
+	- Setting the frequency directly.   
+	```curl -X POST http://esp32-server.local:8080/api/freq/80.7```   
 
 - Mute audio   
  Mute L and R audio.   
