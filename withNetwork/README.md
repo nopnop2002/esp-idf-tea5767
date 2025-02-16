@@ -124,9 +124,9 @@ FM-NHK,82.5; JOCK-FM 10kw
 	```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/freq/80.7" -m ""```   
 
 - Mute audio   
- Mute L and R audio.   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/mute/on" -m ""```   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/mute/1" -m ""```   
- Unmute L and R audio.   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/mute/off" -m ""```   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/mute/0" -m ""```   
+	- Mute L and R audio.   
+	```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/mute/on" -m ""```   
+	```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/mute/1" -m ""```   
+	- Unmute L and R audio.   
+	```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/mute/off" -m ""```   
+	```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/mute/0" -m ""```   
