@@ -54,17 +54,17 @@ FM-NHK,82.5; JOCK-FM 10kw
 	```curl -X POST http://esp32-server.local:8080/api/search/down```   
 
 - Select a preset radio station   
- Select the first preset.   
- ```curl -X POST http://esp32-server.local:8080/api/preset/0```   
- Select the second preset.   
- ```curl -X POST http://esp32-server.local:8080/api/preset/1```   
- Select the 9th preset.   
- ```curl -X POST http://esp32-server.local:8080/api/preset/9```   
- Set current radio station to default.   
- Record the current radio station to NVS.   
- At boot time, it read from NVS and set to the current Radio station.   
- ```curl -X POST http://esp32-server.local:8080/api/preset/default```   
- If you want to erase the defaults, use ```idf.py Erase-flash```.   
+	- Select the first preset.   
+	```curl -X POST http://esp32-server.local:8080/api/preset/0```   
+	- Select the second preset.   
+	```curl -X POST http://esp32-server.local:8080/api/preset/1```   
+	- Select the 9th preset.   
+	```curl -X POST http://esp32-server.local:8080/api/preset/9```   
+	- Set current radio station to default.   
+	Record the current radio station to NVS.   
+	At boot time, it read from NVS and set to the current Radio station.   
+	```curl -X POST http://esp32-server.local:8080/api/preset/default```   
+	If you want to erase the defaults, use ```idf.py Erase-flash```.   
 
 - Change frequence   
  Decrease the frequence by -1.0Mhz.   
