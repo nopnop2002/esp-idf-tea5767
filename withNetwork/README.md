@@ -32,7 +32,7 @@ Using MQTT
 ![Image](https://github.com/user-attachments/assets/127f99f1-7940-485d-83e8-c673856201d9)
 
 # How to use   
-- Radio staion preset   
+- Radio station preset   
 	You have to edit preset.def in preset directory.   
 	Preset.def have radio frequency which you want to select.   
 	After which, Build this project and flash it to board.   
