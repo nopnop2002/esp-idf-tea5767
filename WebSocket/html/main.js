@@ -76,7 +76,9 @@ function showPreset(text, defaultMode) {
 	//check.setAttribute('value', presetId);
 	check.setAttribute('value', checkValue);
 	check.setAttribute('id', presetId);
-	//check.setAttribute('checked', 'true');
+	if (defaultMode == 1) {
+		check.setAttribute('checked', 'true');
+	}
 	document.getElementById('preset-panel').appendChild(check);
 
 	// Add preset label
@@ -85,7 +87,7 @@ function showPreset(text, defaultMode) {
 	checkLabel.innerText = 'Goto ' + text + 'MHz';
 	document.getElementById('preset-panel').appendChild(checkLabel);
 
-	// Add default radio
+	// Add system default radio
 	var check = document.createElement('input');
 	//check.setAttribute('type', 'checkbox');
 	check.setAttribute('type', 'radio');
