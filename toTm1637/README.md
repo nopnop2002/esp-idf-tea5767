@@ -2,7 +2,9 @@
 Display frequency and signal level on 8 segment LCD.   
 I use [this](https://github.com/nopnop2002/esp-idf-tm1637) component.
 
+- Signal Level   
 ![Image](https://github.com/user-attachments/assets/df16a991-69cc-4c42-99b6-1512548d0938)
+- Current Frequency   
 ![Image](https://github.com/user-attachments/assets/2b135c03-ea3a-40dd-ba99-c4a5e21b1312)
 
 # Hardware requirements
