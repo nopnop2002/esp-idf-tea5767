@@ -94,38 +94,38 @@ FM-NHK,82.5; JOCK-FM 10kw
 
 - Search radio station   
  Search for radio stations upwards.   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/search/up" -m ""   
+ ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/search/up" -m ""```   
  Search for radio stations downwards.   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/search/down" -m ""   
+ ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/search/down" -m ""```   
 
 - Select a preset radio station   
  Select the first preset.   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/preset/0" -m ""   
+ ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/preset/0" -m ""```   
  Select the second preset.   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/preset/1" -m ""   
+ ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/preset/1" -m ""```   
  Select the 9th preset.
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/preset/9" -m ""   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/preset/default" -m ""   
+ ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/preset/9" -m ""```   
+ ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/preset/default" -m ""```   
  Set current radio station to default.   
  At boot time, it read from NVS and set to the current Radio station.   
  If you want to erase the defaults, use ```idf.py Erase-flash```.   
 
 - Change frequence   
  Decrease the frequence by -1.0Mhz.   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/freq/--" -m ""   
+ ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/freq/--" -m ""```   
  Increase the frequence by +1.0Mhz.   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/freq/++" -m ""   
+ ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/freq/++" -m ""```   
  Decrease the frequence by -0.1Mhz.   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/freq/-" -m ""   
+ ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/freq/-" -m ""```   
  Increase the frequence by +0.1Mhz.
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/freq/+" -m ""   
+ ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/freq/+" -m ""```   
  Setting the frequency directly.   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/freq/80.7" -m ""   
+ ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/freq/80.7" -m ""```   
 
 - Mute audio   
  Mute L and R audio.   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/mute/on" -m ""   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/mute/1" -m ""   
+ ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/mute/on" -m ""```   
+ ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/mute/1" -m ""```   
  Unmute L and R audio.   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/mute/off" -m ""   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/mute/0" -m ""   
+ ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/mute/off" -m ""```   
+ ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/mute/0" -m ""```   
