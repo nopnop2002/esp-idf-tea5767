@@ -32,7 +32,8 @@ FM-NHK,82.5; JOCK-FM 10kw
  0 key to select the first preset.   
  1 key to select the second preset.   
  9 key to select the 9th preset.   
- \* key to record the current radio station in NVS.   
+ \* key to set current radio station to default.   
+ Record the current radio station to NVS.   
  At boot time, it read from NVS and set to the current Radio station.   
  ```idf.py erase-flash``` if clearing NVS.   
 
