@@ -46,8 +46,8 @@ FM-NHK,82.5; JOCK-FM 10kw
 ```
 
 - Open browser   
-
-- Enter the esp32 address in your browser's address bar   
+ Enter the esp32 address in your browser's address bar   
+ Instead of IP addresses, you can use mDNS hostnames.   
 
 - Search Up   
  Search for radio stations upwards.   
