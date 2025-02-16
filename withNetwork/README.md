@@ -58,7 +58,7 @@ FM-NHK,82.5; JOCK-FM 10kw
  ```curl -X POST http://esp32-server.local:8080/api/preset/0```   
  Select the second preset.   
  ```curl -X POST http://esp32-server.local:8080/api/preset/1```   
- Select the 9th preset.
+ Select the 9th preset.   
  ```curl -X POST http://esp32-server.local:8080/api/preset/9```   
  Set current radio station to default.   
  Record the current radio station to NVS.   
@@ -73,7 +73,7 @@ FM-NHK,82.5; JOCK-FM 10kw
  ```curl -X POST http://esp32-server.local:8080/api/freq/++```   
  Decrease the frequence by -0.1Mhz.   
  ```curl -X POST http://esp32-server.local:8080/api/freq/-```   
- Increase the frequence by +0.1Mhz.
+ Increase the frequence by +0.1Mhz.   
  ```curl -X POST http://esp32-server.local:8080/api/freq/+```   
  Setting the frequency directly.   
  ```curl -X POST http://esp32-server.local:8080/api/freq/80.7```   
@@ -86,7 +86,7 @@ FM-NHK,82.5; JOCK-FM 10kw
  ```curl -X POST http://esp32-server.local:8080/api/mute/off```   
  ```curl -X POST http://esp32-server.local:8080/api/mute/0```   
 
-- Get current status
+- Get current status   
  ```curl http://esp32-server.local:8080/```
 
 
