@@ -20,7 +20,7 @@ idf.py flash
 ```
 
 # Configuration for TM1637
-Use GPIO that does not overlap with TEA1637.   
+Use GPIO that does not overlap with TEA5767.   
 ![Image](https://github.com/user-attachments/assets/e7f94ddf-807a-4a26-9b96-19bc6657efc9)
 ![Image](https://github.com/user-attachments/assets/9e6fd01b-c5bc-44cd-b4b4-d17c6eaa94a6)
 
