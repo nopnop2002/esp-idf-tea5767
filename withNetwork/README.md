@@ -61,9 +61,9 @@ FM-NHK,82.5; JOCK-FM 10kw
 	- Select the 9th preset.   
 	```curl -X POST http://esp32-server.local:8080/api/preset/9```   
 	- Set current radio station to default.   
+	```curl -X POST http://esp32-server.local:8080/api/preset/default```   
 	Record the current radio station to NVS.   
 	At boot time, it read from NVS and set to the current Radio station.   
-	```curl -X POST http://esp32-server.local:8080/api/preset/default```   
 	If you want to erase the defaults, use ```idf.py Erase-flash```.   
 
 - Change frequence   
@@ -79,12 +79,12 @@ FM-NHK,82.5; JOCK-FM 10kw
 	```curl -X POST http://esp32-server.local:8080/api/freq/80.7```   
 
 - Mute audio   
- Mute L and R audio.   
- ```curl -X POST http://esp32-server.local:8080/api/mute/on```   
- ```curl -X POST http://esp32-server.local:8080/api/mute/1```   
- Unmute L and R audio.   
- ```curl -X POST http://esp32-server.local:8080/api/mute/off```   
- ```curl -X POST http://esp32-server.local:8080/api/mute/0```   
+	- Mute L and R audio.   
+	```curl -X POST http://esp32-server.local:8080/api/mute/on```   
+	```curl -X POST http://esp32-server.local:8080/api/mute/1```   
+	- Unmute L and R audio.   
+	```curl -X POST http://esp32-server.local:8080/api/mute/off```   
+	```curl -X POST http://esp32-server.local:8080/api/mute/0```   
 
 - Get current status   
  ```curl http://esp32-server.local:8080/```
@@ -105,9 +105,9 @@ FM-NHK,82.5; JOCK-FM 10kw
  ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/preset/1" -m ""   
  Select the 9th preset.
  ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/preset/9" -m ""   
+ ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/preset/default" -m ""   
  Set current radio station to default.   
  At boot time, it read from NVS and set to the current Radio station.   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/preset/default" -m ""   
  If you want to erase the defaults, use ```idf.py Erase-flash```.   
 
 - Change frequence   
