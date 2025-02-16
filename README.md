@@ -64,6 +64,10 @@ Read [this](https://github.com/nopnop2002/esp-idf-tea5767/tree/main/withKeys).
 # Display frequency and signal level on 8 segment LCD   
 Read [this](https://github.com/nopnop2002/esp-idf-tea5767/tree/main/toTm1637).   
 
+# Operate the radio using network   
+Read [this](https://github.com/nopnop2002/esp-idf-tea5767/tree/main/withNetwork).   
+
+
 # API
 Refer to tea5767.h.   
 
