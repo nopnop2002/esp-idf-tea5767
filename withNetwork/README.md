@@ -93,22 +93,23 @@ FM-NHK,82.5; JOCK-FM 10kw
 # API for MQTT
 
 - Search radio station   
- Search for radio stations upwards.   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/search/up" -m ""```   
- Search for radio stations downwards.   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/search/down" -m ""```   
+	- Search for radio stations upwards.   
+	```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/search/up" -m ""```   
+	- Search for radio stations downwards.   
+	```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/search/down" -m ""```   
 
 - Select a preset radio station   
- Select the first preset.   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/preset/0" -m ""```   
- Select the second preset.   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/preset/1" -m ""```   
- Select the 9th preset.
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/preset/9" -m ""```   
- ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/preset/default" -m ""```   
- Set current radio station to default.   
- At boot time, it read from NVS and set to the current Radio station.   
- If you want to erase the defaults, use ```idf.py Erase-flash```.   
+	- Select the first preset.   
+	```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/preset/0" -m ""```   
+	- Select the second preset.   
+	```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/preset/1" -m ""```   
+	- Select the 9th preset.
+	```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/preset/9" -m ""```   
+	- Set current radio station to default.   
+	```mosquitto_pub -h broker.emqx.io -p 1883 -t "/api/preset/default" -m ""```   
+	Record the current radio station to NVS.   
+	At boot time, it read from NVS and set to the current Radio station.   
+	If you want to erase the defaults, use ```idf.py Erase-flash```.   
 
 - Change frequence   
  Decrease the frequence by -1.0Mhz.   
