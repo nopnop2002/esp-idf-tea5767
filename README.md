@@ -67,6 +67,8 @@ Read [this](https://github.com/nopnop2002/esp-idf-tea5767/tree/main/toTm1637).
 # Operate the radio using network   
 Read [this](https://github.com/nopnop2002/esp-idf-tea5767/tree/main/withNetwork).   
 
+# Operate the radio using Web Browser   
+Read [this](https://github.com/nopnop2002/esp-idf-tea5767/tree/main/WebSocket).   
 
 # API
 Refer to tea5767.h.   
