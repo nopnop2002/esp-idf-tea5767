@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>FM RADIO</title>
+</head>
+
+<body>
+	<h1 id="header"></h1>
+
+	<!-- Frequence Panel -->
+	<!--
+	<svg id="SVGSSD"
+		style="position: absolute; border: 0px solid; left: 10px; top:40px;"
+		heigth = "n*10"
+		width = "n*40"
+	</svg>
+	-->
+	<svg id="SVGSSD"
+		style="position: absolute; border: 0px solid; left: 10px; top:40px;"
+		height="70"
+		width="280"
+	</svg>
+
+	<!-- Signal Level Panel -->
+	<div id="signal-panel">
+		<canvas id="signal-canvas" width="600" height="200"></canvas>
+	</div>
+
+	<!-- Speaker Panel -->
+	<div id="speaker-panel">
+		<img src="speaker.png" width="30" height="30" id="speaker1">
+		<img src="speaker.png" width="30" height="30" id="speaker2">
+	</div>
+
+	<!-- Button Panel -->
+	<div id="button-panel">
+		<div>
+			<button id="searchUp" onclick="sendId('searchup-request')">Search Up</button>
+			<button id="searchDn" onclick="sendId('searchdown-request')">Search Down</button>
+			<button id="segmentColor" onclick="sendId('color-request')">Segment Color</button>
+		</div>
+	</div>
+
+	<!-- Preset Panel -->
+	<div id="preset-panel">
+		<div>
+		presets:
+		</div>
+	</div>
+
+	<!--
+	https://github.com/CodeDrome/seven-segment-display-javascript
+	-->
+	<script src="seven_segment_display.js"></script>
+	<!--
+	<script src="seven_segment_display_page.js"></script>
+	-->
+	<script type="text/javascript" src="main.js"></script>
+</body>
+</html>
+
