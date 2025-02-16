@@ -48,10 +48,10 @@ FM-NHK,82.5; JOCK-FM 10kw
 # API for HTTP
 
 - Search radio station   
- - Search for radio stations upwards.   
- ```curl -X POST http://esp32-server.local:8080/api/search/up```   
- - Search for radio stations downwards.   
- ```curl -X POST http://esp32-server.local:8080/api/search/down```   
+	- Search for radio stations upwards.   
+	```curl -X POST http://esp32-server.local:8080/api/search/up```   
+	- Search for radio stations downwards.   
+	```curl -X POST http://esp32-server.local:8080/api/search/down```   
 
 - Select a preset radio station   
  Select the first preset.   
