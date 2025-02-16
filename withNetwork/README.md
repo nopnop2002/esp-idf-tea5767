@@ -33,17 +33,17 @@ Using MQTT
 
 # How to use   
 - Radio staion preset   
- You have to edit preset.def in preset directory.   
- Preset.def have radio frequency which you want to select.   
- After which, Build this project and flash it to board.   
- example of preset.def:   
-```
-# This is the radio station preset definition file
-# name,frequency; comment
-ZIP-FM,77.8; JOQV-FM 10kw
-FM-AICHI,80.7; JOCU-FM 10kw
-FM-NHK,82.5; JOCK-FM 10kw
-```
+	You have to edit preset.def in preset directory.   
+	Preset.def have radio frequency which you want to select.   
+	After which, Build this project and flash it to board.   
+	example of preset.def:   
+	```
+	# This is the radio station preset definition file
+	# name,frequency; comment
+	ZIP-FM,77.8; JOQV-FM 10kw
+	FM-AICHI,80.7; JOCU-FM 10kw
+	FM-NHK,82.5; JOCK-FM 10kw
+	```
 
 # API for HTTP
 
