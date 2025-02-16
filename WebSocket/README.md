@@ -21,7 +21,7 @@ idf.py flash
 # Configuration   
 ![config-top](https://user-images.githubusercontent.com/6020549/146466041-44d8769e-955f-4ff2-a820-19d7462baa21.jpg)
 
-Set the information of your access point.
+Set the information of your access point.   
 ![config-wifi-1](https://user-images.githubusercontent.com/6020549/146466210-9d808b99-7782-412d-ac11-fc69a31f66c1.jpg)
 
 You can use Static IP.   
@@ -32,11 +32,11 @@ You can use the MDNS hostname instead of the IP address.
 
 
 # How to use   
-- Radio staion preset
-You have to edit preset.def in preset directory.
-Preset.def have radio frequency which you want to select.
-After which, Build this project and flash it to board.
-example of preset.def:
+- Radio staion preset   
+ You have to edit preset.def in preset directory.   
+ Preset.def have radio frequency which you want to select.   
+ After which, Build this project and flash it to board.   
+ example of preset.def:
 ```
 # This is the radio station preset definition file
 # name,frequency; comment
