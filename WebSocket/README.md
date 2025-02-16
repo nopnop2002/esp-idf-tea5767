@@ -32,36 +32,36 @@ You can use the MDNS hostname instead of the IP address.
 
 
 # How to use   
-- Radio staion preset   
- You have to edit preset.def in preset directory.   
- Preset.def have radio frequency which you want to select.   
- After which, Build this project and flash it to board.   
- example of preset.def:
-```
-# This is the radio station preset definition file
-# name,frequency; comment
-ZIP-FM,77.8; JOQV-FM 10kw
-FM-AICHI,80.7; JOCU-FM 10kw
-FM-NHK,82.5; JOCK-FM 10kw
-```
+- Radio station preset   
+	You have to edit preset.def in preset directory.   
+	Preset.def have radio frequency which you want to select.   
+	After which, Build this project and flash it to board.   
+	example of preset.def:
+	```
+	# This is the radio station preset definition file
+	# name,frequency; comment
+	ZIP-FM,77.8; JOQV-FM 10kw
+	FM-AICHI,80.7; JOCU-FM 10kw
+	FM-NHK,82.5; JOCK-FM 10kw
+	```
 
 - Open browser   
- Enter the esp32 address in your browser's address bar   
- Instead of IP addresses, you can use mDNS hostnames.   
+	Enter the esp32 address in your browser's address bar   
+	Instead of IP addresses, you can use mDNS hostnames.   
 
 - Search Up   
- Search for radio stations upwards.   
+	Search for radio stations upwards.   
 
 - Search Down   
- Search for radio stations downwards.   
+	Search for radio stations downwards.   
 
 - Segment Color   
- Change segment color.   
+	Change segment color.   
 
 - Goto   
- Goto preset station.   
+	Goto preset station.   
 
 - As system default   
- Record the current radio station to NVS.   
- At boot time, it read from NVS and set to the current Radio station.   
- If you want to erase the defaults, use ```idf.py Erase-flash```.   
+	Record the current radio station to NVS.   
+	At boot time, it read from NVS and set to the current Radio station.   
+	If you want to erase the defaults, use ```idf.py Erase-flash```.   
