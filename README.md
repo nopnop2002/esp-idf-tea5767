@@ -99,5 +99,3 @@ YourProject --+-- CMakeLists.txt
               +-- managed_components ----- nopnop2002__tea5767
 ```
 
-# Reference   
-https://github.com/nopnop2002/esp-idf-fm-radio
