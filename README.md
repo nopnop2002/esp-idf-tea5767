@@ -29,6 +29,11 @@ idf.py menuconfig
 idf.py flash
 ```
 
+When using the USB port provided by the USB Serial/JTAG Controller Console, you need to enable the following line in sdkconfig.   
+```
+CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG=y
+```
+
 # Configuration for Radio   
 
 ![config-top](https://user-images.githubusercontent.com/6020549/146292879-4be4bc9b-6a2e-4cb9-b0a8-bdad5fae8615.jpg)
