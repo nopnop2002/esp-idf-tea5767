@@ -21,6 +21,12 @@ idf.py menuconfig
 idf.py flash
 ```
 
+When using the USB port provided by the USB Serial/JTAG Controller Console, you need to enable the following line in sdkconfig.   
+```
+CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG=y
+```
+
+
 # Configuration for TM1637
 Use GPIO that does not overlap with TEA5767.   
 ![Image](https://github.com/user-attachments/assets/e7f94ddf-807a-4a26-9b96-19bc6657efc9)
