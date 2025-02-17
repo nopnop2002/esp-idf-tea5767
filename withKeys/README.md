@@ -9,6 +9,12 @@ idf.py menuconfig
 idf.py flash
 ```
 
+When using the USB port provided by the USB Serial/JTAG Controller Console, you need to enable the following line in sdkconfig.   
+```
+CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG=y
+```
+
+
 # How to use   
 - Radio station preset   
 	You have to edit preset.def in preset directory.   
