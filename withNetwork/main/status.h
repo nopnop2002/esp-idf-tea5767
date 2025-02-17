@@ -4,8 +4,8 @@ typedef struct {
 } COMMAND_t;
 
 typedef struct {
-	double current_freq;
+	double currentFrequence;
 	int stereo;
-	int signal_level;
+	int signalLevel;
 	int mute;
 } STATUS_t;

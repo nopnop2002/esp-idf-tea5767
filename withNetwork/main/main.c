@@ -232,7 +232,6 @@ esp_err_t mountSPIFFS(char * path, char * label, int max_files) {
 	return ret;
 }
 
-void keyin(void *pvParameters);
 void radio(void *pvParameters);
 #if CONFIG_NETWORK_HTTP
 void http_server(void *pvParameters);
