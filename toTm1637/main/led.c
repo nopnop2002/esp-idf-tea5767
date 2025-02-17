@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <math.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/queue.h"
@@ -23,15 +24,15 @@ void led(void * arg)
 		BaseType_t received = xQueueReceive(xQueueStatus, &status, 0);
 		ESP_LOGD(TAG, "received=%d", received);
 		if (received) {
-			int current_freq = status.current_freq * 10;
-			ESP_LOGI(TAG, "current_freq=%d stereo=%d signal_level=%d/15 mute=%d",
-				current_freq, status.stereo, status.signal_level, status.mute);
+			int currentFrequence = round(status.currentFrequence * 10);
+			ESP_LOGI(TAG, "currentFrequence=%d stereo=%d signalLevel=%d/15 mute=%d",
+				currentFrequence, status.stereo, status.signalLevel, status.mute);
 			if (status.mute == 0) {
 				// Show frequency
-				tm1637_set_number(lcd, current_freq, false, 0x02); // _23.4
+				tm1637_set_number(lcd, currentFrequence, false, 0x02); // _23.4
 				vTaskDelay(100);
 				// Show signal level
-				tm1637_set_number(lcd, status.signal_level, false, 0x00);
+				tm1637_set_number(lcd, status.signalLevel, false, 0x00);
 			} else {
 				// Clear lcd
 				for (int index=0;index<6;index++) {

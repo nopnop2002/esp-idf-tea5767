@@ -201,17 +201,17 @@ void radio(void *pvParameters)
 	ESP_LOGI(TAG, "Start base_path=[%s]", base_path);
 
 	// Reading default frequency
-	int16_t presetFrequence = 0;
-	double current_freq;
-	esp_err_t err = NVS_read_int16(KEY, &presetFrequence);
-	ESP_LOGI(TAG, "NVS_read_int16=%d presetFrequence=%d", err, presetFrequence);
+	int16_t defaultFrequence = 0;
+	double currentFrequence;
+	esp_err_t err = NVS_read_int16(KEY, &defaultFrequence);
+	ESP_LOGI(TAG, "NVS_read_int16=%d defaultFrequence=%d", err, defaultFrequence);
 	if (err == ESP_OK) {
-		current_freq = presetFrequence / 10.0; // go to preset frequency
+		currentFrequence = defaultFrequence / 10.0; // go to preset frequency
 	} else {
 #if CONFIG_FM_BAND_US
-		current_freq = TEA5767_US_FM_BAND_MIN; // go to station 87.5MHz
+		currentFrequence = TEA5767_US_FM_BAND_MIN; // go to station 87.5MHz
 #else
-		current_freq = TEA5767_JP_FM_BAND_MIN; // go to station 76.0MHz
+		currentFrequence = TEA5767_JP_FM_BAND_MIN; // go to station 76.0MHz
 #endif
 	}
 
@@ -241,8 +241,8 @@ void radio(void *pvParameters)
 	radio_init(&ctrl_data, CONFIG_SDA_GPIO, CONFIG_SCL_GPIO);
 
 	// Set current frequency
-	ESP_LOGI(TAG, "current_freq=%f", current_freq);
-	radio_set_frequency(&ctrl_data, current_freq);
+	ESP_LOGI(TAG, "currentFrequence=%f", currentFrequence);
+	radio_set_frequency(&ctrl_data, currentFrequence);
 
 	int search_mode = 0;
 	int search_direction = 0;
@@ -255,16 +255,16 @@ void radio(void *pvParameters)
 		if (readBytes == 0) {
 			//radio_read_status(&ctrl_data, buf);
 			if (radio_read_status(&ctrl_data, buf) == 1) {
-				//double current_freq =	floor (radio_frequency_available (&ctrl_data, buf) / 100000 + .5) / 10;
-				current_freq = floor (radio_frequency_available (&ctrl_data, buf) / 100000 + .5) / 10;
+				//double currentFrequence =	floor (radio_frequency_available (&ctrl_data, buf) / 100000 + .5) / 10;
+				currentFrequence = floor (radio_frequency_available (&ctrl_data, buf) / 100000 + .5) / 10;
 				int stereo = radio_stereo(&ctrl_data, buf);
-				int signal_level = radio_signal_level(&ctrl_data, buf);
-				ESP_LOGI(TAG, "current_freq=%f stereo=%d signal_level=%d/15 mute=%d", current_freq, stereo, signal_level, ctrl_data.mute);
+				int signalLevel = radio_signal_level(&ctrl_data, buf);
+				ESP_LOGI(TAG, "currentFrequence=%f stereo=%d signalLevel=%d/15 mute=%d", currentFrequence, stereo, signalLevel, ctrl_data.mute);
 
 				STATUS_t status;
-				status.current_freq = current_freq;
+				status.currentFrequence = currentFrequence;
 				status.stereo = stereo;
-				status.signal_level = signal_level;
+				status.signalLevel = signalLevel;
 				status.mute = ctrl_data.mute;
 				xQueueOverwrite(xQueueStatus, &status);
 			}
@@ -289,28 +289,28 @@ void radio(void *pvParameters)
 				search_direction = TEA5767_SEARCH_DIR_DOWN;
 				radio_search_down(&ctrl_data, buf);
 			} else if (ch == 0x2a) { // *
-				presetFrequence = current_freq * 10;
-				err = NVS_write_int16(KEY, presetFrequence);
-				ESP_LOGI(TAG, "NVS_write_int16=%d, presetFrequence=%d current_freq=%f", err, presetFrequence, current_freq);
+				defaultFrequence = round(currentFrequence * 10);
+				err = NVS_write_int16(KEY, defaultFrequence);
+				ESP_LOGI(TAG, "NVS_write_int16=%d, defaultFrequence=%d currentFrequence=%f", err, defaultFrequence, currentFrequence);
 			} else if (ch == 0x44) { // D
-				if (current_freq - 1.0 >= min_freq) {
-					current_freq = current_freq - 1.0;
-					radio_set_frequency(&ctrl_data, current_freq);
+				if (currentFrequence - 1.0 >= min_freq) {
+					currentFrequence = currentFrequence - 1.0;
+					radio_set_frequency(&ctrl_data, currentFrequence);
 				}
 			} else if (ch == 0x55) { // U
-				if (current_freq + 1.0 <= max_freq) {
-					current_freq = current_freq + 1.0;
-					radio_set_frequency(&ctrl_data, current_freq);
+				if (currentFrequence + 1.0 <= max_freq) {
+					currentFrequence = currentFrequence + 1.0;
+					radio_set_frequency(&ctrl_data, currentFrequence);
 				}
 			} else if (ch == 0x64) { // d
-				if (current_freq - 0.1 >= min_freq) {
-					current_freq = current_freq - 0.1;
-					radio_set_frequency(&ctrl_data, current_freq);
+				if (currentFrequence - 0.1 >= min_freq) {
+					currentFrequence = currentFrequence - 0.1;
+					radio_set_frequency(&ctrl_data, currentFrequence);
 				}
 			} else if (ch == 0x75) { // u
-				if (current_freq + 0.1 <= max_freq) {
-					current_freq = current_freq + 0.1;
-					radio_set_frequency(&ctrl_data, current_freq);
+				if (currentFrequence + 0.1 <= max_freq) {
+					currentFrequence = currentFrequence + 0.1;
+					radio_set_frequency(&ctrl_data, currentFrequence);
 				}
 			} else if (ch == 0x3f) { // ?
 				for (int i=0;i<presets;i++) {
@@ -320,17 +320,17 @@ void radio(void *pvParameters)
 				int index = ch - 0x30;
 				if (index < presets) {
 					ESP_LOGI(TAG, "preset[%d] name=[%s] frequency=%f", index, preset[index].name, preset[index].frequency);
-					current_freq = preset[index].frequency;
-					radio_set_frequency(&ctrl_data, current_freq);
+					currentFrequence = preset[index].frequency;
+					radio_set_frequency(&ctrl_data, currentFrequence);
 				} else {
 					ESP_LOGW(TAG, "preset[%d] not found", index);
 				}
 			} else if (ch == 0x4d) { // M
 				ctrl_data.mute = false;
-				radio_set_frequency(&ctrl_data, current_freq);
+				radio_set_frequency(&ctrl_data, currentFrequence);
 			} else if (ch == 0x6d) { // m
 				ctrl_data.mute = true;
-				radio_set_frequency(&ctrl_data, current_freq);
+				radio_set_frequency(&ctrl_data, currentFrequence);
 			} // end if
 		}
 	} // end while
