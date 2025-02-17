@@ -21,7 +21,7 @@
 #include "status.h"
 
 static char *TAG = "RADIO";
-static char *KEY = "preset_freq";
+static char *DEFAULT_FREQ = "DEFAULT_FREQ";
 
 extern QueueHandle_t xQueueCommand;
 extern QueueHandle_t xQueueStatus;
@@ -49,7 +49,7 @@ esp_err_t NVS_read_int16(char * key, int16_t *value) {
 		ESP_LOGE(TAG, "Error (%s) opening NVS handle", esp_err_to_name(err));
 		return ESP_FAIL;
 	}
-	ESP_LOGI(TAG, "nvs_open Done");
+	ESP_LOGD(TAG, "nvs_open Done");
 
 	ESP_LOGI(TAG, "NVS_read_int16 Reading [%s] from NVS ... ", key);
 	int16_t _value = 0; // value will default to 0, if not set yet in NVS
@@ -87,11 +87,13 @@ esp_err_t NVS_write_int16(char * key, int16_t value) {
 		ESP_LOGE(TAG, "Error (%s) opening NVS handle", esp_err_to_name(err));
 		return ESP_FAIL;
 	}
-	ESP_LOGI(TAG, "nvs_open Done");
+	ESP_LOGD(TAG, "nvs_open Done");
 
+	ESP_LOGI(TAG, "NVS_write_int16 Writing [%s] to NVS ... ", key);
 	err = nvs_set_i16(my_handle, key, value);
 	ESP_LOGI(TAG, "nvs_set_i16 err=%d", err);
 	if (err == ESP_OK) {
+		ESP_LOGI(TAG, "NVS_write_int16 Done. [%s] = %d", key, value);
 		// Commit written value.
 		// After setting any values, nvs_commit() must be called to ensure changes are written
 		// to flash storage. Implementations may write to storage at other times,
@@ -112,7 +114,7 @@ esp_err_t NVS_write_int16(char * key, int16_t value) {
 
 static int parseLine(char *line, int size1, int size2, char arr[size1][size2])
 {
-	ESP_LOGD(TAG, "line=[%s]", line);
+	ESP_LOGD(__FUNCTION__, "line=[%s]", line);
 	int dst = 0;
 	int pos = 0;
 	int llen = strlen(line);
@@ -120,14 +122,14 @@ static int parseLine(char *line, int size1, int size2, char arr[size1][size2])
 
 	for(int src=0;src<llen;src++) {
 		char c = line[src];
-		ESP_LOGD(TAG, "src=%d c=%c", src, c);
+		ESP_LOGD(__FUNCTION__, "src=%d c=%c", src, c);
 		if (c == ',') {
 			if (inq) {
 				if (pos == (size2-1)) continue;
 				arr[dst][pos++] = line[src];
 				arr[dst][pos] = 0;
 			} else {
-				ESP_LOGD(TAG, "arr[%d]=[%s]",dst,arr[dst]);
+				ESP_LOGD(__FUNCTION__, "arr[%d]=[%s]",dst,arr[dst]);
 				dst++;
 				if (dst == size1) break;
 				pos = 0;
@@ -139,7 +141,7 @@ static int parseLine(char *line, int size1, int size2, char arr[size1][size2])
 				arr[dst][pos++] = line[src];
 				arr[dst][pos] = 0;
 			} else {
-				ESP_LOGD(TAG, "arr[%d]=[%s]",dst,arr[dst]);
+				ESP_LOGD(__FUNCTION__, "arr[%d]=[%s]",dst,arr[dst]);
 				dst++;
 				break;
 			}
@@ -162,7 +164,7 @@ static int parseLine(char *line, int size1, int size2, char arr[size1][size2])
 
 static int readPresetFile(char *filename, PRESET_t *preset, size_t maxLine, size_t maxText) {
 	int readLine = 0;
-	ESP_LOGI(pcTaskGetName(0), "Reading file:maxText=%d",maxText);
+	ESP_LOGD(pcTaskGetName(0), "Reading file:maxText=%d",maxText);
 	FILE* f = fopen(filename, "r");
 	if (f == NULL) {
 		ESP_LOGE(__FUNCTION__, "Failed to open define file for reading");
@@ -177,16 +179,16 @@ static int readPresetFile(char *filename, PRESET_t *preset, size_t maxLine, size
 		if (pos) {
 			*pos = '\0';
 		}
-		ESP_LOGI(__FUNCTION__, "line=[%s]", line);
+		ESP_LOGD(__FUNCTION__, "line=[%s]", line);
 		if (strlen(line) == 0) continue;
 		if (line[0] == '#') continue;
 
 		int ret = parseLine(line, 10, 32, result);
-		ESP_LOGI(TAG, "parseLine=%d", ret);
-		for(int i=0;i<ret;i++) ESP_LOGI(__FUNCTION__, "result[%d]=[%s]", i, &result[i][0]);
+		ESP_LOGD(__FUNCTION__, "parseLine=%d", ret);
+		for(int i=0;i<ret;i++) ESP_LOGD(__FUNCTION__, "result[%d]=[%s]", i, &result[i][0]);
 		strlcpy(preset[readLine].name, &result[0][0], maxText+1);
 		preset[readLine].frequency = strtof(&result[1][0], NULL);
-		ESP_LOGI(__FUNCTION__, "name=[%s] frequency=%f", preset[readLine].name, preset[readLine].frequency);
+		ESP_LOGD(__FUNCTION__, "name=[%s] frequency=%f", preset[readLine].name, preset[readLine].frequency);
 
 		readLine++;
 		if (readLine == maxLine) break;
@@ -200,10 +202,20 @@ void radio(void *pvParameters)
 	char *base_path = (char *)pvParameters;
 	ESP_LOGI(TAG, "Start base_path=[%s]", base_path);
 
+	// Reading preset frequency
+	char filename[64];
+	sprintf(filename, "%s/preset.def", base_path);
+	ESP_LOGI(TAG, "filename=[%s]", filename);
+	PRESET_t preset[MAX_PRESET];
+	int presets = readPresetFile(filename, preset, MAX_PRESET, MAX_NAME);
+	for(int i=0;i<presets;i++) {
+		ESP_LOGI(TAG, "preset[%d] name=[%s] frequency=%f", i, preset[i].name, preset[i].frequency);
+	}
+
 	// Reading default frequency
 	int16_t defaultFrequence = 0;
 	double currentFrequence;
-	esp_err_t err = NVS_read_int16(KEY, &defaultFrequence);
+	esp_err_t err = NVS_read_int16(DEFAULT_FREQ, &defaultFrequence);
 	ESP_LOGI(TAG, "NVS_read_int16=%d defaultFrequence=%d", err, defaultFrequence);
 	if (err == ESP_OK) {
 		currentFrequence = defaultFrequence / 10.0; // go to preset frequency
@@ -226,13 +238,6 @@ void radio(void *pvParameters)
 		min_freq = TEA5767_JP_FM_BAND_MIN;
 		max_freq = TEA5767_JP_FM_BAND_MAX;
 #endif
-
-	// Reading preset frequency
-	char filename[64];
-	sprintf(filename, "%s/preset.def", base_path);
-	ESP_LOGI(TAG, "filename=[%s]", filename);
-	PRESET_t preset[MAX_PRESET];
-	int presets = readPresetFile(filename, preset, MAX_PRESET, MAX_NAME);
 
 	// Initialize radio
 	TEA5767_t ctrl_data;
@@ -290,7 +295,7 @@ void radio(void *pvParameters)
 				radio_search_down(&ctrl_data, buf);
 			} else if (ch == 0x2a) { // *
 				defaultFrequence = round(currentFrequence * 10);
-				err = NVS_write_int16(KEY, defaultFrequence);
+				err = NVS_write_int16(DEFAULT_FREQ, defaultFrequence);
 				ESP_LOGI(TAG, "NVS_write_int16=%d, defaultFrequence=%d currentFrequence=%f", err, defaultFrequence, currentFrequence);
 			} else if (ch == 0x44) { // D
 				if (currentFrequence - 1.0 >= min_freq) {
