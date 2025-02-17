@@ -202,16 +202,16 @@ void radio(void *pvParameters)
 
 	// Reading default frequency
 	int16_t defaultFrequence = 0;
-	double current_freq;
+	double currentFrequence;
 	esp_err_t err = NVS_read_int16(PRESET_FREQ, &defaultFrequence);
 	ESP_LOGI(TAG, "NVS_read_int16=%d defaultFrequence=%d", err, defaultFrequence);
 	if (err == ESP_OK) {
-		current_freq = defaultFrequence / 10.0; // go to preset frequency
+		currentFrequence = defaultFrequence / 10.0; // go to preset frequency
 	} else {
 #if CONFIG_FM_BAND_US
-		current_freq = TEA5767_US_FM_BAND_MIN; // go to station 87.5MHz
+		currentFrequence = TEA5767_US_FM_BAND_MIN; // go to station 87.5MHz
 #else
-		current_freq = TEA5767_JP_FM_BAND_MIN; // go to station 76.0MHz
+		currentFrequence = TEA5767_JP_FM_BAND_MIN; // go to station 76.0MHz
 #endif
 	}
 
@@ -234,8 +234,8 @@ void radio(void *pvParameters)
 	radio_init(&ctrl_data, CONFIG_SDA_GPIO, CONFIG_SCL_GPIO);
 
 	// Set current frequence
-	ESP_LOGI(TAG, "current_freq=%f", current_freq);
-	radio_set_frequency(&ctrl_data, current_freq);
+	ESP_LOGI(TAG, "currentFrequence=%f", currentFrequence);
+	radio_set_frequency(&ctrl_data, currentFrequence);
 
 	char cRxBuffer[512];
 	char DEL = 0x04;
@@ -251,13 +251,13 @@ void radio(void *pvParameters)
 		if (readBytes == 0) {
 			//radio_read_status(&ctrl_data, radio_status);
 			if (radio_read_status(&ctrl_data, radio_status) == 1) {
-				//double current_freq =	floor (radio_frequency_available (&ctrl_data, radio_status) / 100000 + .5) / 10;
-				current_freq = floor (radio_frequency_available (&ctrl_data, radio_status) / 100000 + .5) / 10;
+				//double currentFrequence =	floor (radio_frequency_available (&ctrl_data, radio_status) / 100000 + .5) / 10;
+				currentFrequence = floor (radio_frequency_available (&ctrl_data, radio_status) / 100000 + .5) / 10;
 				int stereo = radio_stereo(&ctrl_data, radio_status);
-				int signal_level = radio_signal_level(&ctrl_data, radio_status);
-				ESP_LOGI(TAG, "current_freq=%f stereo=%d signal_level=%d/15", current_freq, stereo, signal_level);
+				int signalLevel = radio_signal_level(&ctrl_data, radio_status);
+				ESP_LOGI(TAG, "currentFrequence=%f stereo=%d signalLevel=%d/15", currentFrequence, stereo, signalLevel);
 
-				sprintf(outBuffer,"STATUS%c%f%c%d%c%d", DEL, current_freq, DEL, stereo, DEL, signal_level);
+				sprintf(outBuffer,"STATUS%c%f%c%d%c%d", DEL, currentFrequence, DEL, stereo, DEL, signalLevel);
 				ESP_LOGD(TAG, "outBuffer=[%s]", outBuffer);
 				ws_server_send_text_all(outBuffer,strlen(outBuffer));
 			}
@@ -343,7 +343,7 @@ void radio(void *pvParameters)
 					} else {
 						// Save to NVS
 						ESP_LOGI(TAG, "request_freq=%f", request_freq);
-						defaultFrequence = request_freq * 10;
+						defaultFrequence = round(request_freq * 10);
 						err = NVS_write_int16(PRESET_FREQ, defaultFrequence);
 						ESP_LOGI(TAG, "NVS_write_int16=%d, defaultFrequence=%d", err, defaultFrequence);
 					}
