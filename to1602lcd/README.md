@@ -60,7 +60,7 @@ ___A transistor is required for backlight control.___
 ```
 ESP32 GND -----------------+ emitter
                            |
-               Å@Å@base   /
+                   base   /
 ESP32 BL  -----^^^--------|    SS8050
               100ohm      \
                            | collector
