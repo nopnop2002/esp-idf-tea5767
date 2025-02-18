@@ -67,9 +67,20 @@ ESP32 BL  -----^^^--------|    SS8050
               100ohm      \
                            |emitter
 ESP32 GND -----------------+
-
 ```
 
+You can use Digital transistor.   
+```
+ESP32 3.3V/5V --------------------- LCD A
+                           +------- LCD K
+                           |OUT
+                           |
+                       IN /
+ESP32 BL  ----------------|    Digital transistor
+                           \
+                           |GND
+ESP32 GND -----------------+
+```
 
 
 # How to use   
