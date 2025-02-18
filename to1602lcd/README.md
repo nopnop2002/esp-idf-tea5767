@@ -58,14 +58,15 @@ The PCB marking is +5V, but it works at 3.3V.
 (*3)   
 ___A transistor is required for backlight control.___   
 ```
-ESP32 GND -----------------+ emitter
+ESP32 3.3V/5V --------------------- LCD A
+                           +------- LCD K
+                           |collector
                            |
-                   base   /
+                     base /
 ESP32 BL  -----^^^--------|    SS8050
               100ohm      \
-                           | collector
-                           +------- LCD K
-ESP32 3.3V/5V --------------------- LCD A
+                           |emitter
+ESP32 GND -----------------+
 
 ```
 
