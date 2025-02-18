@@ -5,8 +5,8 @@ I use [this](https://github.com/UncleRus/esp-idf-lib/tree/master/components/hd44
 ![Image](https://github.com/user-attachments/assets/fa2a27e0-bcf0-425c-b633-53eeb1902ceb)
 
 # Hardware requirements
-Character display using HD44780.
-Usually called 1602LCD/1604LCD.
+Character display using HD44780.   
+Usually called 1602LCD/1604LCD.   
 
 # Installation
 ```
@@ -47,13 +47,30 @@ Use GPIO that does not overlap with TEA5767.
 ||D6|--|GPIO16|GPIO5|GPIO4|(*1)|
 ||D7|--|GPIO4|GPIO6|GPIO5|(*1)|
 ||A|--|3.3V/5V|3.3V/5V|3.3V/5V|(*2)|
-||K|--|GND|GND|GND||
+||K|--|GND|GND|GND|(*3)|
 
 (*1)   
 You can change it to any pin using menuconfig.   
 
 (*2)   
 The PCB marking is +5V, but it works at 3.3V.   
+
+(*3)   
+___A transistor is required for backlight control.___   
+```
+                  emitter
+ESP32 GND -----------------+
+                           |
+                    base   /
+ESP32 BL  -----^^^--------|    SS8050
+                           \
+               collector   |
+                           +------- LCD K
+ESP32 3.3V/5V --------------------- LCD A
+
+```
+
+
 
 # How to use   
 Same as [this](https://github.com/nopnop2002/esp-idf-tea5767/tree/main/withKeys).   
