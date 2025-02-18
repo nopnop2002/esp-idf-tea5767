@@ -35,7 +35,7 @@ Use GPIO that does not overlap with TEA5767.
 ![Image](https://github.com/user-attachments/assets/ee025a5a-3be4-41d3-a7b3-b980f9003a20)
 ![Image](https://github.com/user-attachments/assets/b4fbb81a-4325-4bc9-b97f-c89d6cb0920b)
 
-# Typical Wireing
+# Wiring example
 |TEA5767|16x02 LCD||ESP32|ESP32-S2/S3|ESP32-C2/C3/C6||
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |SCL||--|GPIO22|GPIO0|GPIO1|(*1)|
