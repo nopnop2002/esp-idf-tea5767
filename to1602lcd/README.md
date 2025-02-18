@@ -61,7 +61,7 @@ Use GPIO that does not overlap with TEA5767.
 You can change it to any pin using menuconfig.   
 
 (*2)   
-The PCB marking is +5V, but it works at 3.3V.   
+5V for 5V modules. 3.3V for 3.3V modules.   
 
 (*3)   
 ___A transistor is required for backlight control.___   
