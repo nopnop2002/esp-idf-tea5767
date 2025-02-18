@@ -5,8 +5,12 @@ I use [this](https://github.com/UncleRus/esp-idf-lib/tree/master/components/hd44
 I'm listening to 80.7MHz.   
 8/15 is signal level.   
 @ is is monaural signal.   
-@-@ is is streo signal.   
 ![Image](https://github.com/user-attachments/assets/fa2a27e0-bcf0-425c-b633-53eeb1902ceb)
+
+I'm listening to 92.9MHz.   
+10/15 is signal level.   
+@-@ is is streo signal.   
+![Image](https://github.com/user-attachments/assets/e4363811-f03e-4319-b5e8-9a88eaaf6897)
 
 # Hardware requirements
 Character display using HD44780.   
