@@ -32,13 +32,13 @@ Use GPIO that does not overlap with TEA5767.
 ![Image](https://github.com/user-attachments/assets/e7f94ddf-807a-4a26-9b96-19bc6657efc9)
 ![Image](https://github.com/user-attachments/assets/9e6fd01b-c5bc-44cd-b4b4-d17c6eaa94a6)
 
-# Typical Wireing
+# Wiring example
 |TEA5767|TM1637||ESP32|ESP32-S2/S3|ESP32-C2/C3/C6||
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-|SCL||--|GPIO22|GPIO4|GPIO6|(*1)|
-|SDA||--|GPIO21|GPIO3|GPIO5|(*1)|
-||CLK|--|GPIO17|GPIO12|GPIO4|(*1)|
-||DIO|--|GPIO16|GPIO11|GPIO3|(*1)|
+|SCL||--|GPIO22|GPIO0|GPIO0|(*1)|
+|SDA||--|GPIO21|GPIO1|GPIO1|(*1)|
+||CLK|--|GPIO17|GPIO2|GPIO2|(*1)|
+||DIO|--|GPIO16|GPIO3|GPIO3|(*1)|
 |GND|GND|--|GND|GND|GND||
 |VCC(*2)|VCC|--|3.3V|3.3V|3.3V||
 
