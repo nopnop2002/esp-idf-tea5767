@@ -2,6 +2,9 @@
 Display frequency and signal level on 16x02 line character display.   
 I use [this](https://github.com/UncleRus/esp-idf-lib/tree/master/components/hd44780) component.
 
+8/15 is signal level.   
+@ is is monaural signal.   
+@-@ is is streo signal.   
 ![Image](https://github.com/user-attachments/assets/fa2a27e0-bcf0-425c-b633-53eeb1902ceb)
 
 # Hardware requirements
