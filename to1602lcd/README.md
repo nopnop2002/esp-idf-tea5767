@@ -37,7 +37,7 @@ Use GPIO that does not overlap with TEA5767.
 |SCL||--|GPIO22|GPIO4|GPIO6|(*1)|
 |SDA||--|GPIO21|GPIO3|GPIO5|(*1)|
 ||VSS|--|GND|GND|GND||
-||VDD|--|3.3V/5V|3.3V/5V|3.3V/5V|(*2|
+||VDD|--|3.3V/5V|3.3V/5V|3.3V/5V|(*2)|
 ||VO|--||||Variable resistor output|
 ||RS|--|GPIO19|GPIO1|GPIO0|(*1)|
 ||RW|--|GND|GND|GND||
