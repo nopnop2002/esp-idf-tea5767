@@ -1,0 +1,75 @@
+menu "Application configuration"
+
+	config GPIO_RANGE_MAX
+		int
+		default 33 if IDF_TARGET_ESP32
+		default 46 if IDF_TARGET_ESP32S2
+		default 48 if IDF_TARGET_ESP32S3
+		default 18 if IDF_TARGET_ESP32C2
+		default 19 if IDF_TARGET_ESP32C3
+		default 30 if IDF_TARGET_ESP32C6
+
+
+	config RS_GPIO
+		int "HD44780 RS GPIO number"
+		range 0 GPIO_RANGE_MAX
+		default 19 if IDF_TARGET_ESP32
+		default  1 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+		default  0 # C3 and others
+		help
+			GPIO number (IOxx) to HD44780 RS.
+
+	config E_GPIO
+		int "HD44780 E GPIO number"
+		range 0 GPIO_RANGE_MAX
+		default 18 if IDF_TARGET_ESP32
+		default  2 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+		default  1 # C3 and others
+		help
+			GPIO number (IOxx) to HD44780 E.
+
+	config D4_GPIO
+		int "HD44780 D4 GPIO number"
+		range 0 GPIO_RANGE_MAX
+		default  5 if IDF_TARGET_ESP32
+		default  3 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+		default  2 # C3 and others
+		help
+			GPIO number (IOxx) to HD44780 D4.
+
+	config D5_GPIO
+		int "HD44780 D5 GPIO number"
+		range 0 GPIO_RANGE_MAX
+		default 17 if IDF_TARGET_ESP32
+		default  4 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+		default  3 # C3 and others
+		help
+			GPIO number (IOxx) to HD44780 D5.
+
+	config D6_GPIO
+		int "HD44780 D6 GPIO number"
+		range 0 GPIO_RANGE_MAX
+		default 16 if IDF_TARGET_ESP32
+		default  5 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+		default  4 # C3 and others
+		help
+			GPIO number (IOxx) to HD44780 D6.
+
+	config D7_GPIO
+		int "HD44780 D7 GPIO number"
+		range 0 GPIO_RANGE_MAX
+		default  4 if IDF_TARGET_ESP32
+		default  6 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+		default  5 # C3 and others
+		help
+			GPIO number (IOxx) to HD44780 D7.
+
+	config BL_GPIO
+		int "HD44780 BL GPIO number"
+		range -1 GPIO_RANGE_MAX
+		default -1
+		help
+			GPIO number (IOxx) to HD44780 BL.
+
+endmenu
+
