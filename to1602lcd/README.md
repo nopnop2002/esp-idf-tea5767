@@ -9,7 +9,7 @@ I'm listening to 80.7MHz.
 
 I'm listening to 92.9MHz.   
 10/15 is signal level.   
-@-@ indicates a streo signal.   
+@-@ indicates a stereo signal.   
 ![Image](https://github.com/user-attachments/assets/e4363811-f03e-4319-b5e8-9a88eaaf6897)
 
 # Hardware requirements
