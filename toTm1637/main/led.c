@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <stdbool.h>
+#include <inttypes.h>
 #include <math.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -25,9 +25,9 @@ void led(void * arg)
 		ESP_LOGD(TAG, "received=%d", received);
 		if (received) {
 			int currentFrequence = round(status.currentFrequence * 10);
-			ESP_LOGI(TAG, "currentFrequence=%d stereo=%d signalLevel=%d/15 mute=%d",
-				currentFrequence, status.stereo, status.signalLevel, status.mute);
-			if (status.mute == 0) {
+			ESP_LOGI(TAG, "currentFrequence=%d stereoMode=%d signalLevel=%d/15 muteStatus=%d",
+				currentFrequence, status.stereoMode, status.signalLevel, status.muteStatus);
+			if (status.muteStatus == 0) {
 				// Show frequency
 				tm1637_set_number(lcd, currentFrequence, false, 0x02); // _23.4
 				vTaskDelay(100);

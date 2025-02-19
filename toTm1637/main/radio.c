@@ -268,9 +268,9 @@ void radio(void *pvParameters)
 
 				STATUS_t status;
 				status.currentFrequence = currentFrequence;
-				status.stereo = stereo;
+				status.stereoMode = stereo;
 				status.signalLevel = signalLevel;
-				status.mute = ctrl_data.mute;
+				status.muteStatus = ctrl_data.mute;
 				xQueueOverwrite(xQueueStatus, &status);
 			}
 
