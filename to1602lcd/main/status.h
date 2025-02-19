@@ -5,7 +5,7 @@ typedef struct {
 
 typedef struct {
 	double currentFrequence;
-	int stereo;
+	int stereoMode;
 	int signalLevel;
-	int mute;
+	int muteStatus;
 } STATUS_t;

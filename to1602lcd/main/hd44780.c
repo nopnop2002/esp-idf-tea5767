@@ -10,6 +10,8 @@
 #include <esp_idf_lib_helpers.h>
 #include "status.h"
 
+extern QueueHandle_t xQueueStatus;
+
 static const char *TAG = "LCD";
 
 static const uint8_t level0[8] = { 0b11100, 0b11110, 0b11110, 0b11110, 0b11110, 0b11110, 0b11110, 0b11100};
@@ -35,8 +37,6 @@ static const uint8_t pattern[] = {
 	0x09, 0x0c, 0x08, 0x09, 0x0b, 0x08, //8
 	0x09, 0x0c, 0x08, 0x0f, 0x0b, 0x08, //9
 };
-
-extern QueueHandle_t xQueueStatus;
 
 void lcdNumber(hd44780_t lcd, int num, int pos)
 {
@@ -123,10 +123,10 @@ void hd44780(void *pvParameters)
 		ESP_LOGD(TAG, "received=%d", received);
 		if (received) {
 			int currentFrequence = round(status.currentFrequence * 10);
-			ESP_LOGI(TAG, "currentFrequence=%d stereo=%d signalLevel=%d/15 mute=%d",
-				currentFrequence, status.stereo, status.signalLevel, status.mute);
+			ESP_LOGI(TAG, "currentFrequence=%d stereoMode=%d signalLevel=%d/15 muteStatus=%d",
+				currentFrequence, status.stereoMode, status.signalLevel, status.muteStatus);
 
-			if (status.mute == 0) {
+			if (status.muteStatus == 0) {
 				if (CONFIG_BL_GPIO != -1) {
 					hd44780_switch_backlight(&lcd, true);
 				}
@@ -149,7 +149,7 @@ void hd44780(void *pvParameters)
 
 				hd44780_gotoxy(&lcd, 0, 1);
 				hd44780_putc(&lcd, '@');
-				if (status.stereo == 1) {
+				if (status.stereoMode == 1) {
 					hd44780_gotoxy(&lcd, 1, 1);
 					hd44780_puts(&lcd, "-@");
 				}
