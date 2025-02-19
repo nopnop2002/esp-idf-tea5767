@@ -264,13 +264,14 @@ void radio(void *pvParameters)
 				currentFrequence = floor (radio_frequency_available (&ctrl_data, buf) / 100000 + .5) / 10;
 				int stereo = radio_stereo(&ctrl_data, buf);
 				int signalLevel = radio_signal_level(&ctrl_data, buf);
-				ESP_LOGI(TAG, "currentFrequence=%f stereo=%d signalLevel=%d/15 mute=%d", currentFrequence, stereo, signalLevel, ctrl_data.mute);
+				ESP_LOGI(TAG, "currentFrequence=%f stereo=%d signalLevel=%d/15 mute=%d",
+					currentFrequence, stereo, signalLevel, ctrl_data.mute);
 
 				STATUS_t status;
 				status.currentFrequence = currentFrequence;
-				status.stereo = stereo;
+				status.stereoMode = stereo;
 				status.signalLevel = signalLevel;
-				status.mute = ctrl_data.mute;
+				status.muteStatus = ctrl_data.mute;
 				xQueueOverwrite(xQueueStatus, &status);
 			}
 

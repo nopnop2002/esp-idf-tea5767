@@ -76,7 +76,6 @@ esp_err_t wifi_init_sta()
 {
 	s_wifi_event_group = xEventGroupCreate();
 
-	ESP_LOGI(TAG,"ESP-IDF esp_netif");
 	ESP_ERROR_CHECK(esp_netif_init());
 	ESP_ERROR_CHECK(esp_event_loop_create_default());
 	esp_netif_t *netif = esp_netif_create_default_wifi_sta();
@@ -125,7 +124,15 @@ esp_err_t wifi_init_sta()
 	wifi_config_t wifi_config = {
 		.sta = {
 			.ssid = CONFIG_ESP_WIFI_SSID,
-			.password = CONFIG_ESP_WIFI_PASSWORD
+			.password = CONFIG_ESP_WIFI_PASSWORD,
+			/* Setting a password implies station will connect to all security modes including WEP/WPA.
+			 * However these modes are deprecated and not advisable to be used. Incase your Access point
+			 * doesn't support WPA2, these mode can be enabled by commenting below line */
+			.threshold.authmode = WIFI_AUTH_WPA2_PSK,
+			.pmf_cfg = {
+				.capable = true,
+				.required = false
+			},
 		},
 	};
 	ESP_ERROR_CHECK(esp_wifi_set_ps(WIFI_PS_NONE));
@@ -252,11 +259,11 @@ void app_main()
 	}
 	ESP_ERROR_CHECK( err );
 
-    // Initialize WiFi
-    ESP_ERROR_CHECK(wifi_init_sta());
+	// Initialize WiFi
+	ESP_ERROR_CHECK(wifi_init_sta());
 
-    // Initialize mDNS
-    initialise_mdns();
+	// Initialize mDNS
+	initialise_mdns();
 
 	// Initialize SPIFFS
 	// Maximum files that could be open at the same time is 1.
@@ -272,18 +279,18 @@ void app_main()
 
 	// Create Task
 #if CONFIG_NETWORK_HTTP
-    /* Get the local IP address */
-    esp_netif_ip_info_t ip_info;
-    ESP_ERROR_CHECK(esp_netif_get_ip_info(esp_netif_get_handle_from_ifkey("WIFI_STA_DEF"), &ip_info));
-    char cparam0[64];
-    sprintf(cparam0, IPSTR, IP2STR(&ip_info.ip));
+	/* Get the local IP address */
+	esp_netif_ip_info_t ip_info;
+	ESP_ERROR_CHECK(esp_netif_get_ip_info(esp_netif_get_handle_from_ifkey("WIFI_STA_DEF"), &ip_info));
+	char cparam0[64];
+	sprintf(cparam0, IPSTR, IP2STR(&ip_info.ip));
 
-    // Start task
-    xTaskCreate(http_server, "HTTP", 1024*4, (void *)cparam0, 2, NULL);
+	// Start task
+	xTaskCreate(http_server, "HTTP", 1024*4, (void *)cparam0, 2, NULL);
 #endif
 
 #if CONFIG_NETWORK_MQTT
-    xTaskCreate(mqtt, "MQTT", 1024*4, NULL, 2, NULL);
+	xTaskCreate(mqtt, "MQTT", 1024*4, NULL, 2, NULL);
 #endif
 
 	xTaskCreate(radio, "RADIO", 1024*4, base_path, 5, NULL);

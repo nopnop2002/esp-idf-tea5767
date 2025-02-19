@@ -41,10 +41,12 @@ static esp_err_t root_get_handler(httpd_req_t *req)
 
 	STATUS_t status;
 	xQueueReceive(xQueueStatus, &status, 1000/portTICK_PERIOD_MS);
-	ESP_LOGI(__FUNCTION__, "currentFrequence=%f stereo=%d signalLevel=%d/15", status.currentFrequence, status.stereo, status.signalLevel);
+	ESP_LOGI(__FUNCTION__, "currentFrequence=%f stereoMode=%d signalLevel=%d/15",
+		status.currentFrequence, status.stereoMode, status.signalLevel);
 
 	char chunk[128];
-	int chunk_len = sprintf(chunk, "currentFrequence=%f stereo=%d signalLevel=%d/15", status.currentFrequence, status.stereo, status.signalLevel);
+	int chunk_len = sprintf(chunk, "currentFrequence=%f stereoMode=%d signalLevel=%d/15",
+		status.currentFrequence, status.stereoMode, status.signalLevel);
 	httpd_resp_send_chunk(req, chunk, chunk_len);
 
 	/* Send empty chunk to signal HTTP response completion */
