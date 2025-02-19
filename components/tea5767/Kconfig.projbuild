@@ -1,6 +1,6 @@
 menu "TEA5767 Configuration"
 
-	config GPIO_RANGE_MAX
+	config TEA5767_GPIO_RANGE_MAX
 		int
 		default 33 if IDF_TARGET_ESP32
 		default 46 if IDF_TARGET_ESP32S2
@@ -11,7 +11,7 @@ menu "TEA5767 Configuration"
 
 	config SCL_GPIO
 		int "SCL GPIO number"
-		range 0 GPIO_RANGE_MAX
+		range 0 TEA5767_GPIO_RANGE_MAX
 		default 22 if IDF_TARGET_ESP32
 		default 4  if IDF_TARGET_ESP32S2
 		default 4  if IDF_TARGET_ESP32S3
@@ -23,7 +23,7 @@ menu "TEA5767 Configuration"
 
 	config SDA_GPIO
 		int "SDA GPIO number"
-		range 0 GPIO_RANGE_MAX
+		range 0 TEA5767_GPIO_RANGE_MAX
 		default 21 if IDF_TARGET_ESP32
 		default 3  if IDF_TARGET_ESP32S2
 		default 3  if IDF_TARGET_ESP32S3
