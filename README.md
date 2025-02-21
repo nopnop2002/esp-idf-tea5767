@@ -22,9 +22,13 @@ ESP-IDF V5.1 is required when using ESP32-C6.
 	![tea5767-3](https://user-images.githubusercontent.com/6020549/146294473-9b514cf8-ca94-49d8-a723-ec67185ec119.JPG)
 
 - Speaker   
-	A speaker with mini jack input is required.   
+	A speaker with a 3.5mm 3-pole mini plug input is required.   
 	I bought this for $5.   
 	![Image](https://github.com/user-attachments/assets/a9d3712c-3834-4acd-9746-2909fd19f16a)
+
+- Cable   
+	3.5mm 3-pole mini plug wire cable.   
+	Used to connect to speakers.   
 
 # Installation
 ```
