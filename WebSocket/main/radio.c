@@ -218,7 +218,7 @@ void radio(void *pvParameters)
 	esp_err_t err = NVS_read_int16(DEFAULT_FREQ, &defaultFrequence);
 	ESP_LOGI(TAG, "NVS_read_int16=%d defaultFrequence=%d", err, defaultFrequence);
 	if (err == ESP_OK) {
-		currentFrequence = defaultFrequence / 10.0; // go to preset frequency
+		currentFrequence = defaultFrequence / 10.0; // go to default frequency
 	} else {
 #if CONFIG_FM_BAND_US
 		currentFrequence = TEA5767_US_FM_BAND_MIN; // go to station 87.5MHz
@@ -258,11 +258,11 @@ void radio(void *pvParameters)
 			if (radio_read_status(&ctrl_data, radio_status) == 1) {
 				//double currentFrequence =	floor (radio_frequency_available (&ctrl_data, radio_status) / 100000 + .5) / 10;
 				currentFrequence = floor (radio_frequency_available (&ctrl_data, radio_status) / 100000 + .5) / 10;
-				int stereo = radio_stereo(&ctrl_data, radio_status);
+				int stereoMode = radio_stereo(&ctrl_data, radio_status);
 				int signalLevel = radio_signal_level(&ctrl_data, radio_status);
-				ESP_LOGI(TAG, "currentFrequence=%f stereo=%d signalLevel=%d/15", currentFrequence, stereo, signalLevel);
+				ESP_LOGI(TAG, "currentFrequence=%f stereoMode=%d signalLevel=%d/15", currentFrequence, stereoMode, signalLevel);
 
-				sprintf(outBuffer,"STATUS%c%f%c%d%c%d", DEL, currentFrequence, DEL, stereo, DEL, signalLevel);
+				sprintf(outBuffer,"STATUS%c%f%c%d%c%d", DEL, currentFrequence, DEL, stereoMode, DEL, signalLevel);
 				ESP_LOGD(TAG, "outBuffer=[%s]", outBuffer);
 				ws_server_send_text_all(outBuffer,strlen(outBuffer));
 			}
