@@ -9,17 +9,21 @@ ESP-IDF V5.0 is required when using ESP32-C2.
 ESP-IDF V5.1 is required when using ESP32-C6.   
 
 # Hardware requirements   
-TEA5767 FM Stereo Radio Module.   
-I bought this on AliExpress about $4.   
+- TEA5767 FM Stereo Radio Module   
+	I bought this on AliExpress about $4.   
 
-![tea5767-1](https://user-images.githubusercontent.com/6020549/146292319-adf96f9a-f076-4b4f-be9f-2a2928c0b92f.JPG)
-![tea5767-2](https://user-images.githubusercontent.com/6020549/146292325-c70aaddb-6f61-45ca-8de3-42ba3f375876.JPG)
+	![tea5767-1](https://user-images.githubusercontent.com/6020549/146292319-adf96f9a-f076-4b4f-be9f-2a2928c0b92f.JPG)
+	![tea5767-2](https://user-images.githubusercontent.com/6020549/146292325-c70aaddb-6f61-45ca-8de3-42ba3f375876.JPG)
 
-The module has a standard antenna, but if you want to use it in a room, you need a long antenna.   
-With a long antenna, you can get more signals.   
-I used an AC power cable as extended antena.   
-![tea5767-3](https://user-images.githubusercontent.com/6020549/146294473-9b514cf8-ca94-49d8-a723-ec67185ec119.JPG)
+- External antena   
+	The module has a standard antenna, but if you want to use it in a room, you need a long antenna.   
+	With a long antenna, you can get more signals.   
+	I used an AC power cable as extended antena.   
+	![tea5767-3](https://user-images.githubusercontent.com/6020549/146294473-9b514cf8-ca94-49d8-a723-ec67185ec119.JPG)
 
+- Speaker   
+	I bought this for $5.   
+	![Image](https://github.com/user-attachments/assets/c732270f-df9e-403f-83f1-5c028de4924e)
 
 # Installation
 ```
