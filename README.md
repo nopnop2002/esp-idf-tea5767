@@ -23,7 +23,7 @@ ESP-IDF V5.1 is required when using ESP32-C6.
 
 - Speaker   
 	I bought this for $5.   
-	![Image](https://github.com/user-attachments/assets/c732270f-df9e-403f-83f1-5c028de4924e)
+	![Image](https://github.com/user-attachments/assets/a9d3712c-3834-4acd-9746-2909fd19f16a)
 
 # Installation
 ```
