@@ -1,0 +1,4 @@
+dependencies:
+  nopnop2002/tm1637:
+    path: components/tm1637/
+    git: https://github.com/nopnop2002/esp-idf-tm1637.git
