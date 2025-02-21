@@ -1,0 +1,54 @@
+menu "Application configuration"
+
+	config ESP_WIFI_SSID
+		string "WiFi SSID"
+		default "myssid"
+		help
+			SSID (network name) for the example to connect to.
+
+	config ESP_WIFI_PASSWORD
+		string "WiFi Password"
+		default "mypassword"
+		help
+			WiFi password (WPA or WPA2) for the example to use.
+
+	config ESP_MAXIMUM_RETRY
+		int "Maximum retry"
+		default 5
+		help
+			Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.
+
+	choice UDP_ADDRESS
+		bool "Select UDP Addrss"
+		default UDP_DIRECTED_BROADCAST
+		help
+			Select Send Addrss.
+		config UDP_LIMITED_BROADCAST
+			bool "Limited broadcast address"
+		config UDP_DIRECTED_BROADCAST
+			bool "Directed broadcast address"
+		config UDP_MULTICAST
+			bool "Multicast address"
+		config UDP_UNICAST
+			bool "Unicast address"
+	endchoice
+
+	config UDP_MULTICAST_ADDRESS
+		depends on UDP_MULTICAST
+		string "Multicast address"
+		default "239.255.255.255"
+
+	config UDP_UNICAST_ADDRESS
+		depends on UDP_UNICAST
+		string "Unicast address"
+		default "192.168.10.20"
+
+	config UDP_PORT
+		int "UDP Port"
+		range 1024 65535
+		default 8080
+		help
+			Port to send data output to
+
+endmenu
+
