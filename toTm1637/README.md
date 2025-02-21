@@ -10,7 +10,7 @@ I use [this](https://github.com/nopnop2002/esp-idf-tm1637) component.
 # Hardware requirements
 TM1637 8 segment Digital Display Tube 4 digit LED module.   
 There are several products with different segments and different sizes.   
-I used dot segments.   
+The clock segment module cannot display real numbers.   
 ![Image](https://github.com/user-attachments/assets/d1004d68-9a17-4bc2-8f01-33c7c873db9c)
 
 # Installation
