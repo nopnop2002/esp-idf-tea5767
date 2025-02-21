@@ -1,4 +1,4 @@
-# esp-idf-remote-hd44780
+# RemoteTm1637
 Displays the current radio frequency on the remote display.   
 ![Image](https://github.com/user-attachments/assets/110ffa59-4673-4f5e-ac65-3d5f67ec5a0b)
 
