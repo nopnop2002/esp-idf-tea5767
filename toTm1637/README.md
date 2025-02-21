@@ -1,5 +1,5 @@
 # toTm1637
-Display frequency on 8 segment LCD.   
+Display frequency on 8 segment LED.   
 I use [this](https://github.com/nopnop2002/esp-idf-tm1637) component.
 
 - 0.36 inch segment   
