@@ -112,6 +112,7 @@ void app_main()
 	xTaskCreate(radio, "RADIO", 1024*4, base_path, 5, NULL);
 	xTaskCreate(led, "LED", 1024*4, NULL, 5, NULL);
 
+	// The main task is in an endless loop so that the stack variables are not released.
 	while(1) {
 		vTaskDelay(1);
 	}

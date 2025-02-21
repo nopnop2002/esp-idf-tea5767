@@ -1,16 +1,16 @@
 # toTm1637
-Display frequency and signal level on 8 segment LCD.   
+Display frequency on 8 segment LCD.   
 I use [this](https://github.com/nopnop2002/esp-idf-tm1637) component.
 
-- Signal Level   
-![Image](https://github.com/user-attachments/assets/df16a991-69cc-4c42-99b6-1512548d0938)
-- Current Frequency   
-![Image](https://github.com/user-attachments/assets/2b135c03-ea3a-40dd-ba99-c4a5e21b1312)
+- 0.36 inch segment   
+![Image](https://github.com/user-attachments/assets/6aef7880-8f6d-4b65-ba99-b9457d8f0349)
+- 0.56 inch segment   
+![Image](https://github.com/user-attachments/assets/c30bd6e9-04a9-4771-ba52-11c04bb174da)
 
 # Hardware requirements
 TM1637 8 segment Digital Display Tube 4 digit LED module.   
 There are several products with different segments and different sizes.   
-I used 0.36 inch dot segments.   
+I used dot segments.   
 ![Image](https://github.com/user-attachments/assets/d1004d68-9a17-4bc2-8f01-33c7c873db9c)
 
 # Installation

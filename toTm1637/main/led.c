@@ -16,8 +16,8 @@ extern QueueHandle_t xQueueStatus;
 void led(void * arg)
 {
 	ESP_LOGI(TAG, "Start");
-	tm1637_led_t * lcd = tm1637_init(CONFIG_TM1637_CLK_PIN, CONFIG_TM1637_DIO_PIN);
-	tm1637_set_brightness(lcd, CONFIG_TM1637_BRIGHTNESS);
+	tm1637_led_t * led = tm1637_init(CONFIG_TM1637_CLK_PIN, CONFIG_TM1637_DIO_PIN);
+	tm1637_set_brightness(led, CONFIG_TM1637_BRIGHTNESS);
 
 	while (1) {
 		STATUS_t status;
@@ -29,18 +29,29 @@ void led(void * arg)
 				currentFrequence, status.stereoMode, status.signalLevel, status.muteStatus);
 			if (status.muteStatus == 0) {
 				// Show frequency
-				tm1637_set_number(lcd, currentFrequence, false, 0x02); // _23.4
-				vTaskDelay(100);
-				// Show signal level
-				tm1637_set_number(lcd, status.signalLevel, false, 0x00);
-			} else {
-				// Clear lcd
-				for (int index=0;index<6;index++) {
-					tm1637_set_segment_fixed(lcd, lcd->segment_idx[index], 0x00);
+				char wk[16];
+				if (currentFrequence < 1000) {
+					sprintf(wk, " %d", currentFrequence);
+				} else {
+					sprintf(wk, "%d", currentFrequence);
 				}
+				// Wait 1000 mill sec in this function
+				tm1637_set_segment_ascii_with_time(led, wk, 0x02, 1000); // 123.4
+			} else {
+				// Clear led
+#if CONFIG_TM1637_4_SEGMENT
+				int segments=4;
+#else
+				int segments=6;
+#endif
+				for (int index=0;index<segments;index++) {
+					tm1637_set_segment_fixed(led, led->segment_idx[index], 0x00);
+				}
+				vTaskDelay(100);
 			}
+		} else {
+			vTaskDelay(100);
 		}
-		vTaskDelay(100);
 	} // end while
 
 	// Never reach here
