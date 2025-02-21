@@ -26,7 +26,7 @@ ESP-IDF V5.1 is required when using ESP32-C6.
 	I bought this for $5.   
 	![Image](https://github.com/user-attachments/assets/a9d3712c-3834-4acd-9746-2909fd19f16a)
 
-- Cable   
+- Wire Cable   
 	3.5mm 3-pole mini plug wire cable.   
 	Used to connect to speakers.   
 
