@@ -1,5 +1,5 @@
 # to1602lcd
-Display frequency and signal level on 16x02 line character display.   
+Displays current radio frequency and signal level on 16x02 line character display.   
 I use [this](https://github.com/UncleRus/esp-idf-lib/tree/master/components/hd44780) component.
 
 I'm listening to 80.7MHz.   
