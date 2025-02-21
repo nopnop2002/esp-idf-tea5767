@@ -1,6 +1,5 @@
 # esp-idf-remote-hd44780
 Displays the current radio frequency on the remote display.   
-![Image](https://github.com/user-attachments/assets/fd1faf72-d2ea-48ef-80f1-3733756e0366)
 ![Image](https://github.com/user-attachments/assets/110ffa59-4673-4f5e-ac65-3d5f67ec5a0b)
 
 # Hardware requirements
