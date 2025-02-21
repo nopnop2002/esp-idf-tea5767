@@ -29,3 +29,9 @@ Set the information of your access point.
 
 # How to use   
 Same as [this](https://github.com/nopnop2002/esp-idf-tea5767/tree/main/withKeys).   
+This repository works as a UDP client.   
+Requires a UDP listener.   
+
+## TM1637 udp listener
+https://github.com/nopnop2002/esp-idf-tea5767/tree/main/RemeteTm1637
+
