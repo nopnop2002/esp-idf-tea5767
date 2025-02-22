@@ -1,5 +1,6 @@
 # RemoteTm1637
 Displays the current radio frequency on the remote display.   
+Use with [this](https://github.com/nopnop2002/esp-idf-tea5767/tree/main/toRemoteDisplay).   
 I'm listening to 92.9MHz.   
 ![Image](https://github.com/user-attachments/assets/110ffa59-4673-4f5e-ac65-3d5f67ec5a0b)
 
