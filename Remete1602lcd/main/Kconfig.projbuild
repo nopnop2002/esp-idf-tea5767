@@ -1,0 +1,108 @@
+menu "Application configuration"
+
+	config GPIO_RANGE_MAX
+		int
+		default 33 if IDF_TARGET_ESP32
+		default 46 if IDF_TARGET_ESP32S2
+		default 48 if IDF_TARGET_ESP32S3
+		default 18 if IDF_TARGET_ESP32C2
+		default 19 if IDF_TARGET_ESP32C3
+		default 30 if IDF_TARGET_ESP32C6
+
+	menu "WiFi Setting"
+
+		config ESP_WIFI_SSID
+			string "WiFi SSID"
+			default "myssid"
+			help
+				SSID (network name) for the example to connect to.
+
+		config ESP_WIFI_PASSWORD
+			string "WiFi Password"
+			default "mypassword"
+			help
+				WiFi password (WPA or WPA2) for the example to use.
+
+		config ESP_MAXIMUM_RETRY
+			int "Maximum retry"
+			default 5
+			help
+				Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.
+
+		config UDP_LISTEN_PORT
+			int "UDP Listen Port"
+			range 0 65535
+			default 8080
+			help
+				Local port UDP server will listen on.
+
+	endmenu
+
+
+	menu "Device Setting"
+
+		config RS_GPIO
+			int "HD44780 RS GPIO number"
+			range 0 GPIO_RANGE_MAX
+			default 19 if IDF_TARGET_ESP32
+			default  1 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+			default  0 # C3 and others
+			help
+				GPIO number (IOxx) to HD44780 RS.
+
+		config E_GPIO
+			int "HD44780 E GPIO number"
+			range 0 GPIO_RANGE_MAX
+			default 18 if IDF_TARGET_ESP32
+			default  2 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+			default  1 # C3 and others
+			help
+				GPIO number (IOxx) to HD44780 E.
+
+		config D4_GPIO
+			int "HD44780 D4 GPIO number"
+			range 0 GPIO_RANGE_MAX
+			default  5 if IDF_TARGET_ESP32
+			default  3 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+			default  2 # C3 and others
+			help
+				GPIO number (IOxx) to HD44780 D4.
+
+		config D5_GPIO
+			int "HD44780 D5 GPIO number"
+			range 0 GPIO_RANGE_MAX
+			default 17 if IDF_TARGET_ESP32
+			default  4 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+			default  3 # C3 and others
+			help
+				GPIO number (IOxx) to HD44780 D5.
+
+		config D6_GPIO
+			int "HD44780 D6 GPIO number"
+			range 0 GPIO_RANGE_MAX
+			default 16 if IDF_TARGET_ESP32
+			default  5 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+			default  4 # C3 and others
+			help
+				GPIO number (IOxx) to HD44780 D6.
+
+		config D7_GPIO
+			int "HD44780 D7 GPIO number"
+			range 0 GPIO_RANGE_MAX
+			default  4 if IDF_TARGET_ESP32
+			default  6 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+			default  5 # C3 and others
+			help
+				GPIO number (IOxx) to HD44780 D7.
+
+		config BL_GPIO
+			int "HD44780 BL GPIO number"
+			range -1 GPIO_RANGE_MAX
+			default -1
+			help
+				GPIO number (IOxx) to HD44780 BL.
+
+	endmenu
+
+endmenu
+
