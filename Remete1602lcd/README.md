@@ -2,9 +2,9 @@
 Displays the current radio frequency on the remote display.   
 Use with [this](https://github.com/nopnop2002/esp-idf-tea5767/tree/main/toRemoteDisplay).   
 I'm listening to 92.9MHz as a stereo signal.   
-![Image](https://github.com/user-attachments/assets/184d5160-53b4-4248-9488-a93fa019533e)
+![Image](https://github.com/user-attachments/assets/184d5160-53b4-4248-9488-a93fa019533e)   
 Sometimes it's a mono signal.   
-![Image](https://github.com/user-attachments/assets/8c09811b-9db0-4019-a1fe-7f577694a163)
+![Image](https://github.com/user-attachments/assets/8c09811b-9db0-4019-a1fe-7f577694a163)   
 
 # Hardware requirements
 Character display using HD44780.   
