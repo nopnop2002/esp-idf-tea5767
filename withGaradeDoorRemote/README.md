@@ -1,5 +1,7 @@
 # withGaradeDoorRemote
 Operate the radio using the Garade Door Remote.   
+These are all 433MHz remote controls.   
+You can use a 315MHz remote control instead of a 433MHz remote control.   
 ![Image](https://github.com/user-attachments/assets/851969e3-fb69-4be6-a727-bd8ea58a3c4f)
 
 # Installation
