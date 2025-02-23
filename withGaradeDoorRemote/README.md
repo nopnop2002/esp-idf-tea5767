@@ -28,7 +28,7 @@ idf.py flash
 	![Image](https://github.com/user-attachments/assets/fdd5481a-674b-4f37-8296-552561eff4b0)   
 
 # Wiring example
-|TEA5767|RF Reciver|ESP32|ESP32-S2/S3|ESP32-C2/C3/C6||
+|TEA5767|RF Reciver||ESP32|ESP32-S2/S3|ESP32-C2/C3/C6||
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |SCL||--|GPIO22|GPIO4|GPIO6|(*1)|
 |SDA||--|GPIO21|GPIO3|GPIO5|(*1)|
