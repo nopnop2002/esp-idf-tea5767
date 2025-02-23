@@ -67,3 +67,5 @@ Teaching is now complete.
 ![Image](https://github.com/user-attachments/assets/d01bc5f1-b1ae-4872-9733-d80402e659ce)
 ![Image](https://github.com/user-attachments/assets/98fd909d-164c-4f73-a078-8be682de846b)
 
+# Typical circuit
+![Image](https://github.com/user-attachments/assets/da6d1816-b70a-4250-8680-bb57acaa304f)
