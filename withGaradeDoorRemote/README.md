@@ -86,5 +86,3 @@ Teaching is now complete.
 The receiver's GPIO must not overlap with the GPIO used by TEA5767.   
 ![Image](https://github.com/user-attachments/assets/12544f3b-3471-4645-b6db-058f2a6bb0a0)   
 
-# Typical circuit
-![Image](https://github.com/user-attachments/assets/da6d1816-b70a-4250-8680-bb57acaa304f)
