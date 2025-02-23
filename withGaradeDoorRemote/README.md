@@ -20,7 +20,7 @@ idf.py flash
 	LR43B/LR33B   
 	SRX882/SRX887   
 
-	I used these receivers. From left: H3V4F(433MHz), H3V3E(315MHz), SYN480(433MHz), SYN480(315MHz)   
+	I used these receivers. From left: H3V4F(433MHz), H3V3E(315MHz), SYN480R(433MHz), SYN480R(315MHz)   
 	![Image](https://github.com/user-attachments/assets/f91a7f59-7f5a-49d9-89a1-1d7e3fcf684d)   
 	![Image](https://github.com/user-attachments/assets/bc268d1c-89cb-450f-b7c1-bc8ab141f372)   
 	![Image](https://github.com/user-attachments/assets/fdd5481a-674b-4f37-8296-552561eff4b0)   
