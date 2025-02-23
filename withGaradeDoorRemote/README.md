@@ -59,13 +59,13 @@ The PCB marking is +5V, but it works at 3.3V.
 	FM-NHK,82.5; JOCK-FM 10kw
 	```
 
-- Remote teaching   
+- Teach the remote   
 	We need to tell ESP32 what kind of wireless signal to use.   
 	This project uses two signals.   
 	One is used to switch mute.   
 	The other is used to select radio stations.
 
-- Play radio   
+- Listen to radio   
 	Once the teaching is complete, you can use the remote control to operate the radio.  
 
 # Configuration for teaching
@@ -80,7 +80,7 @@ Teaching is now complete.
 ![Image](https://github.com/user-attachments/assets/5275686c-b2dd-4764-adf2-4a914d5a9d71)   
 
 
-# Configuration for play
+# Configuration for listen to radio
 
 ![Image](https://github.com/user-attachments/assets/d01bc5f1-b1ae-4872-9733-d80402e659ce)   
 ![Image](https://github.com/user-attachments/assets/12544f3b-3471-4645-b6db-058f2a6bb0a0)   
