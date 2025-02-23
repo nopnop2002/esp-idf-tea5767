@@ -13,11 +13,12 @@ idf.py flash
 # Hardware requirements   
 - 315MHz/433MHz Garade Door Remote
 
-- 315MHz/433MHz Receiver
-	H3V3/H3V4
-	SYN480R
-	LR43B/LR33B
-	SRX882/SRX887
+- 315MHz/433MHz Receiver   
+	This project supports these receivers.   
+	H3V3/H3V4   
+	SYN480R   
+	LR43B/LR33B   
+	SRX882/SRX887   
 
 	I used these transceivers. From left: H3V4F, H34A, SYN480, SYN115
 	![Image](https://github.com/user-attachments/assets/f91a7f59-7f5a-49d9-89a1-1d7e3fcf684d)   
@@ -40,7 +41,7 @@ idf.py flash
 
 - Remote teaching   
 	We need to tell ESP32 what kind of wireless signal to use.   
-	This project uses two signals.Å@Å@Å@
+	This project uses two signals.   
 	One is used to switch mute.   
 	The other is used to select radio stations.
 
@@ -51,9 +52,9 @@ idf.py flash
 ![Image](https://github.com/user-attachments/assets/7f6094fa-1905-4bdd-83a3-146162b8a4c9)
 ![Image](https://github.com/user-attachments/assets/115cffd9-152b-4c15-b9c9-eb489d15b806)
 
-At this timing, press the MUTE button on the remote control.   
+At this timing, press the button used for mute switching.   
 ![Image](https://github.com/user-attachments/assets/c1da8758-59bb-4e94-a436-616e1ae83979)   
-At this timing, press the STATION button on the remote control.   
+At this timing, press the button used to select the radio station.   
 ![Image](https://github.com/user-attachments/assets/cda24337-eb54-4d81-aea9-863b9aa47569)   
 All done.   
 ![Image](https://github.com/user-attachments/assets/5275686c-b2dd-4764-adf2-4a914d5a9d71)   
