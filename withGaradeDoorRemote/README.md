@@ -52,7 +52,7 @@ idf.py flash
 
 # Configuration for teaching
 ![Image](https://github.com/user-attachments/assets/7f6094fa-1905-4bdd-83a3-146162b8a4c9)
-![Image](https://github.com/user-attachments/assets/115cffd9-152b-4c15-b9c9-eb489d15b806)
+![Image](https://github.com/user-attachments/assets/b42f20a1-105e-4446-aa11-8e548dd0ce6a)
 
 At this timing, press the button used for mute switching.   
 ![Image](https://github.com/user-attachments/assets/c1da8758-59bb-4e94-a436-616e1ae83979)   
@@ -65,7 +65,7 @@ Teaching is now complete.
 # Configuration for play
 
 ![Image](https://github.com/user-attachments/assets/d01bc5f1-b1ae-4872-9733-d80402e659ce)
-![Image](https://github.com/user-attachments/assets/98fd909d-164c-4f73-a078-8be682de846b)
+![Image](https://github.com/user-attachments/assets/12544f3b-3471-4645-b6db-058f2a6bb0a0)
 
 # Typical circuit
 ![Image](https://github.com/user-attachments/assets/da6d1816-b70a-4250-8680-bb57acaa304f)
