@@ -35,8 +35,14 @@ idf.py flash
 |GND||--|GND|GND|GND||
 |VCC(*2)||--|3.3V|3.3V|3.3V||
 ||VCC|--|3.3V|3.3V|3.3V||
-||DAT|--|GPIO4|GPIO0|GPIO0||
+||DAT|--|GPIO4|GPIO0|GPIO0|(*1)|
 ||GND|--|GND|GND|GND||
+
+(*1)   
+You can change it to any pin using menuconfig.   
+
+(*2)   
+The PCB marking is +5V, but it works at 3.3V.   
 
 # How to use   
 - Radio station preset   
