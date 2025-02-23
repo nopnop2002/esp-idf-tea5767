@@ -28,6 +28,7 @@ idf.py flash
 	![Image](https://github.com/user-attachments/assets/fdd5481a-674b-4f37-8296-552561eff4b0)   
 
 # Wiring example
+The receiver's GPIO must not overlap with the GPIO used by TEA5767.   
 |TEA5767|RF Reciver||ESP32|ESP32-S2/S3|ESP32-C2/C3/C6||
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |SCL||--|GPIO22|GPIO4|GPIO6|(*1)|
@@ -69,7 +70,6 @@ The PCB marking is +5V, but it works at 3.3V.
 
 # Configuration for teaching
 ![Image](https://github.com/user-attachments/assets/7f6094fa-1905-4bdd-83a3-146162b8a4c9)   
-The receiver's GPIO must not overlap with the GPIO used by TEA5767.   
 ![Image](https://github.com/user-attachments/assets/b42f20a1-105e-4446-aa11-8e548dd0ce6a)   
 
 At this timing, press the button used for mute switching.   
@@ -83,6 +83,5 @@ Teaching is now complete.
 # Configuration for play
 
 ![Image](https://github.com/user-attachments/assets/d01bc5f1-b1ae-4872-9733-d80402e659ce)   
-The receiver's GPIO must not overlap with the GPIO used by TEA5767.   
 ![Image](https://github.com/user-attachments/assets/12544f3b-3471-4645-b6db-058f2a6bb0a0)   
 
