@@ -27,6 +27,17 @@ idf.py flash
 	![Image](https://github.com/user-attachments/assets/bc268d1c-89cb-450f-b7c1-bc8ab141f372)   
 	![Image](https://github.com/user-attachments/assets/fdd5481a-674b-4f37-8296-552561eff4b0)   
 
+# Wiring example
+|TEA5767|RF Reciver|ESP32|ESP32-S2/S3|ESP32-C2/C3/C6||
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|SCL||--|GPIO22|GPIO4|GPIO6|(*1)|
+|SDA||--|GPIO21|GPIO3|GPIO5|(*1)|
+|GND||--|GND|GND|GND||
+|VCC(*2)||--|3.3V|3.3V|3.3V||
+||VCC|--|3.3V|3.3V|3.3V||
+||DAT|--|GPIO4|GPIO0|GPIO0||
+||GND|--|GND|GND|GND||
+
 # How to use   
 - Radio station preset   
 	You have to edit preset.def in preset directory.   
