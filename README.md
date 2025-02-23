@@ -91,7 +91,7 @@ The PCB marking is +5V, but it works at 3.3V.
 - Display radio station frequency on 16x02 line character display   
 	Read [this](https://github.com/nopnop2002/esp-idf-tea5767/tree/main/to1602lcd).   
 
-- Displays the current radio frequency on the remote display   
+- Display radio station frequency on the remote display   
 	Read [this](https://github.com/nopnop2002/esp-idf-tea5767/tree/main/toRemoteDisplay).   
 
 # API
