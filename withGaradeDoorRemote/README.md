@@ -56,7 +56,7 @@ At this timing, press the button used for mute switching.
 ![Image](https://github.com/user-attachments/assets/c1da8758-59bb-4e94-a436-616e1ae83979)   
 At this timing, press the button used to select the radio station.   
 ![Image](https://github.com/user-attachments/assets/cda24337-eb54-4d81-aea9-863b9aa47569)   
-All done.   
+Teaching is now complete.   
 ![Image](https://github.com/user-attachments/assets/5275686c-b2dd-4764-adf2-4a914d5a9d71)   
 
 
