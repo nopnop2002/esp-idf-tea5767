@@ -85,5 +85,5 @@ Teaching is now complete.
 ![Image](https://github.com/user-attachments/assets/d01bc5f1-b1ae-4872-9733-d80402e659ce)   
 ![Image](https://github.com/user-attachments/assets/12544f3b-3471-4645-b6db-058f2a6bb0a0)   
 
-Press the Mute button to turn the radio mute ON/OFF.   
-Press the Station button to switch between radio stations.   
+Press the mute button on the remote control to mute the radio on/off.   
+Press the station button on the remote control to switch between radio stations.   
