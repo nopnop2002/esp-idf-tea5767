@@ -79,6 +79,9 @@ The PCB marking is +5V, but it works at 3.3V.
 -	Operate the radio using network   
 	Read [this](https://github.com/nopnop2002/esp-idf-tea5767/tree/main/withNetwork).   
 
+-	Operate the radio using Garade Door Remote   
+	Read [this](https://github.com/nopnop2002/esp-idf-tea5767/tree/main/withGaradeDoorRemote).   
+
 - Operate the radio using Web Browser   
 	Read [this](https://github.com/nopnop2002/esp-idf-tea5767/tree/main/WebSocket).   
 
@@ -87,6 +90,9 @@ The PCB marking is +5V, but it works at 3.3V.
 
 - Display radio station frequency on 16x02 line character display   
 	Read [this](https://github.com/nopnop2002/esp-idf-tea5767/tree/main/to1602lcd).   
+
+- Displays the current radio frequency on the remote display   
+	Read [this](https://github.com/nopnop2002/esp-idf-tea5767/tree/main/toRemoteDisplay).   
 
 # API
 Refer to tea5767.h.   
