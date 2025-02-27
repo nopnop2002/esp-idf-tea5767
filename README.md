@@ -16,8 +16,9 @@ ESP-IDF V4.4 release branch reached EOL in July 2024.
 - External antena   
 	The module has a standard antenna, but if you want to use it in a room, you need a long antenna.   
 	With a long antenna, you can get more signals.   
-	I used an AC power cable as extended antena.   
-	![tea5767-3](https://user-images.githubusercontent.com/6020549/146294473-9b514cf8-ca94-49d8-a723-ec67185ec119.JPG)
+	I used this extension antenna.   
+	I bought this for $5.   
+	![Image](https://github.com/user-attachments/assets/f3efe8e5-85c3-4802-8585-7475d1f706a3)   
 
 - Speaker   
 	A speaker with a 3.5mm 3-pole mini plug input is required.   
