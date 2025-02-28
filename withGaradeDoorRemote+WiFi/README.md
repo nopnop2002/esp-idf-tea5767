@@ -28,5 +28,8 @@ Set the access point information and destination UDP port number.
 ![Image](https://github.com/user-attachments/assets/d01bc5f1-b1ae-4872-9733-d80402e659ce)   
 ![Image](https://github.com/user-attachments/assets/68f6b933-1a86-41e7-bf46-351b672fc4f8)
 
+This is my FM radio system.   
 Press the mute button on the remote control to mute the radio on/off.   
 Press the station button on the remote control to switch between radio stations.   
+Displays the current radio frequency on the remote display.   
+![Image](https://github.com/user-attachments/assets/4fe687f4-1a8e-427b-81cd-65d46cd2fb94)
