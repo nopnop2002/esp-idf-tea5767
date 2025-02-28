@@ -23,7 +23,7 @@ CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG=y
 
 # Configuration
 ![Image](https://github.com/user-attachments/assets/cf8f5a34-fb74-4577-965b-291e66fd0392)   
-Set the information of your access point.   
+Set the access point information and destination UDP port number.   
 ![Image](https://github.com/user-attachments/assets/b8112ba2-63ad-4cd6-8b62-0ab8235032f8)   
 
 
