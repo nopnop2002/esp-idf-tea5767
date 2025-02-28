@@ -1,0 +1,94 @@
+menu "Application Configuration"
+
+	config RF_GPIO_RANGE_MAX
+		int
+		default 33 if IDF_TARGET_ESP32
+		default 46 if IDF_TARGET_ESP32S2
+		default 48 if IDF_TARGET_ESP32S3
+		default 18 if IDF_TARGET_ESP32C2
+		default 19 if IDF_TARGET_ESP32C3
+		default 30 if IDF_TARGET_ESP32C6
+
+	config RF_GPIO
+		int "GPIO number to RF data"
+		range 0 RF_GPIO_RANGE_MAX
+		default 4
+		help
+			GPIO number (IOxx) to RF data.
+			Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to MOSI.
+			On the ESP32, GPIOs 35-39 are input-only so cannot be used as outputs.
+			On the ESP32-S2, GPIO 46 is input-only so cannot be used as outputs.
+
+	choice OPERATION
+		prompt "Operation"
+		default TEACHING
+		help
+			Select operation.
+		config TEACHING
+			bool "Teaching"
+			help
+				Work As teaching.
+		config RADIO
+			bool "Radio"
+			help
+				Work as radio.
+	endchoice
+
+	config ESP_WIFI_SSID
+		depends on RADIO
+		string "WiFi SSID"
+		default "myssid"
+		help
+			SSID (network name) for the example to connect to.
+
+	config ESP_WIFI_PASSWORD
+		depends on RADIO
+		string "WiFi Password"
+		default "mypassword"
+		help
+			WiFi password (WPA or WPA2) for the example to use.
+
+	config ESP_MAXIMUM_RETRY
+		depends on RADIO
+		int "Maximum retry"
+		default 5
+		help
+			Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.
+
+	choice UDP_ADDRESS
+		depends on RADIO
+		bool "Select UDP Addrss"
+		default UDP_DIRECTED_BROADCAST
+		help
+			Select Send Addrss.
+		config UDP_LIMITED_BROADCAST
+			bool "Limited broadcast address"
+		config UDP_DIRECTED_BROADCAST
+			bool "Directed broadcast address"
+		config UDP_MULTICAST
+			bool "Multicast address"
+		config UDP_UNICAST
+			bool "Unicast address"
+	endchoice
+
+	config UDP_MULTICAST_ADDRESS
+		depends on RADIO
+		depends on UDP_MULTICAST
+		string "Multicast address"
+		default "239.255.255.255"
+
+	config UDP_UNICAST_ADDRESS
+		depends on RADIO
+		depends on UDP_UNICAST
+		string "Unicast address"
+		default "192.168.10.20"
+
+	config UDP_PORT
+		depends on RADIO
+		int "UDP Port"
+		range 1024 65535
+		default 8080
+		help
+			Port to send data output to
+
+endmenu

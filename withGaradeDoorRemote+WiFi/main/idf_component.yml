@@ -1,0 +1,4 @@
+dependencies:
+  nopnop2002/RCSwitch:
+    path: components/RCSwitch/
+    git: https://github.com/nopnop2002/esp-idf-rc-switch.git
