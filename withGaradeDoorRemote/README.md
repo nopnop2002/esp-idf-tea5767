@@ -29,7 +29,7 @@ idf.py flash
 
 # Wiring example
 The receiver's GPIO must not overlap with the GPIO used by TEA5767.   
-|TEA5767|RF Reciver||ESP32|ESP32-S2/S3|ESP32-C2/C3/C6||
+|TEA5767|RF Receiver||ESP32|ESP32-S2/S3|ESP32-C2/C3/C6||
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |SCL||--|GPIO22|GPIO4|GPIO6|(*1)|
 |SDA||--|GPIO21|GPIO3|GPIO5|(*1)|
