@@ -32,4 +32,4 @@ This is my FM radio system.
 Press the mute button on the remote control to mute the radio on/off.   
 Press the station button on the remote control to switch between radio stations.   
 Displays the current radio frequency on the remote display.   
-![Image](https://github.com/user-attachments/assets/4fe687f4-1a8e-427b-81cd-65d46cd2fb94)
+![Image](https://github.com/user-attachments/assets/ef90dfa4-29a0-45e7-b8d9-0169db6427bc)
