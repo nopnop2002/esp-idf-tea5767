@@ -33,7 +33,7 @@ This repository works as a UDP client.
 Requires a UDP listener.   
 
 - TM1637 udp listener   
-	https://github.com/nopnop2002/esp-idf-tea5767/tree/main/RemeteTm1637
+	https://github.com/nopnop2002/esp-idf-tea5767/tree/main/RemoteTm1637
 
 - 1602 lcd udp listener   
-	https://github.com/nopnop2002/esp-idf-tea5767/tree/main/Remete1602lcd
+	https://github.com/nopnop2002/esp-idf-tea5767/tree/main/Remote1602lcd
