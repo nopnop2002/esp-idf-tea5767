@@ -18,6 +18,17 @@ function sendId(name) {
 
 function sendIdValue(name, text) {
 	console.log('sendIdValue name=[%s] text=[%s]', name, text);
+
+	// Change number of segments
+	if (name == "jump-request") {
+		var freq = parseFloat(text, 10);
+		console.log("freq=", freq);
+		var digits = 3;
+		if (freq >= 100.0) digits = 4;
+		console.log("digits=", digits);
+		segment.NumberOfDigits = digits;
+	}
+
 	var data = {};
 	data["id"] = name;
 	data["value"] = text;
@@ -148,16 +159,6 @@ function radioEvent() {
 			console.log("radioEvent value=", radioList[i].value);
 			console.log("radioEvent typeof(value)", typeof(radioList[i].value));
 			sendIdValue(radioList[i].name, radioList[i].value)
-
-			// Change number of segments
-			if (radioList[i].name == "jump-request") {
-				var freq = parseFloat(radioList[i].value, 10);
-				console.log("freq=", freq);
-				var digits = 3;
-				if (freq >= 100.0) digits = 4;
-				console.log("digits=", digits);
-				segment.NumberOfDigits = digits;
-			}
 		}
 	}
 }
@@ -290,10 +291,7 @@ websocket.onmessage = function(evt) {
 
 			// Change number of segments
 			if (mode == 1) {
-				var digits = 3;
-				if (value >= 100.0) digits = 4;
-				console.log("PRESET_LIST digits=" + digits);
-				segment.NumberOfDigits = digits;
+				sendIdValue("jump-request", text);
 			}
 			break;
 
