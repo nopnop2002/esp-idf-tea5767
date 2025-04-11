@@ -148,6 +148,16 @@ function radioEvent() {
 			console.log("radioEvent value=", radioList[i].value);
 			console.log("radioEvent typeof(value)", typeof(radioList[i].value));
 			sendIdValue(radioList[i].name, radioList[i].value)
+
+			// Change number of segments
+			if (radioList[i].name == "jump-request") {
+				var freq = parseFloat(radioList[i].value, 10);
+				console.log("freq=", freq);
+				var digits = 3;
+				if (freq >= 100.0) digits = 4;
+				console.log("digits=", digits);
+				segment.NumberOfDigits = digits;
+			}
 		}
 	}
 }
@@ -222,7 +232,6 @@ window.onload = function() {
 	segment.ColorScheme = 2;
 	segment.DecimalPointType = 2;
 	segment.NumberOfDecimalPlaces = 2;
-	//segment.Value = 77.8;
 	segment.NumberOfDigits = 3;
 };
 
@@ -263,20 +272,29 @@ websocket.onmessage = function(evt) {
 
 		case 'PRESET':
 			console.log("PRESET values[1]=" + values[1]);
-			//var value = parseFloat(values[1]);
 			showPreset(values[1], 1);
+			var value = parseFloat(values[1]);
+			console.log("PRESET value=" + value);
 			break;
 
 		case 'PRESET_LIST':
-			console.log("PRESET*10 values[1]=" + values[1]);
-			console.log("PRESET*10 values[2]=" + values[2]);
+			console.log("PRESET_LIST values[1]=" + values[1]);
+			console.log("PRESET_LIST values[2]=" + values[2]);
 			var value = parseInt(values[1]);
 			var mode = parseInt(values[2]);
 			value = value/10.0;
-			console.log("PRESET*10 value=" + value);
+			console.log("PRESET_LIST value=" + value);
 			var text = String(value);
-			console.log("PRESET*10 text=" + text);
+			console.log("PRESET_LIST text=" + text);
 			showPreset(text, mode);
+
+			// Change number of segments
+			if (mode == 1) {
+				var digits = 3;
+				if (value >= 100.0) digits = 4;
+				console.log("PRESET_LIST digits=" + digits);
+				segment.NumberOfDigits = digits;
+			}
 			break;
 
 		case 'COLOR':
