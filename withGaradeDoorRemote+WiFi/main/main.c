@@ -21,6 +21,12 @@
 
 #include "status.h"
 
+static char *TAG = "MAIN";
+
+QueueHandle_t xQueueCommand;
+QueueHandle_t xQueueStatus;
+
+#if CONFIG_RADIO
 /* FreeRTOS event group to signal when we are connected*/
 static EventGroupHandle_t s_wifi_event_group;
 
@@ -30,10 +36,6 @@ static EventGroupHandle_t s_wifi_event_group;
 #define WIFI_CONNECTED_BIT BIT0
 #define WIFI_FAIL_BIT BIT1
 
-static char *TAG = "MAIN";
-
-QueueHandle_t xQueueCommand;
-QueueHandle_t xQueueStatus;
 
 static int s_retry_num = 0;
 
@@ -129,6 +131,7 @@ esp_err_t wifi_init_sta(void)
 	vEventGroupDelete(s_wifi_event_group);
 	return ret_value;
 }
+#endif // CONFIG_RADIO
 
 static void listSPIFFS(char * path) {
 	DIR* dir = opendir(path);
@@ -207,9 +210,6 @@ void app_main()
 	}
 	ESP_ERROR_CHECK( err );
 
-	// Initialize WiFi
-	ESP_ERROR_CHECK(wifi_init_sta());
-
 	// Initialize SPIFFS
 	// Maximum files that could be open at the same time is 1.
 	char *base_path = "/preset";
@@ -219,6 +219,9 @@ void app_main()
 #if CONFIG_TEACHING
 	xTaskCreate(teaching, "TEACHING", 1024*4, NULL, 5, NULL);
 #else
+	// Initialize WiFi
+	ESP_ERROR_CHECK(wifi_init_sta());
+
 	// Create Queue
 	xQueueCommand = xQueueCreate(10, sizeof(char));
 	configASSERT( xQueueCommand );
