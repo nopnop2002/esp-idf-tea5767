@@ -6,3 +6,7 @@ dependencies:
   UncleRus/hd44780:
     path: components/hd44780/
     git: https://github.com/UncleRus/esp-idf-lib.git
+  espressif/cjson:
+    version: "^1.7.0"
+    rules:
+      - if: "idf_version >=6.0"
