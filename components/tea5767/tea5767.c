@@ -4,14 +4,14 @@
 #include <math.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-
-#include "driver/i2c.h"
+#include "driver/i2c_master.h"
 #include "esp_log.h"
 
 #include "tea5767.h"
 
 #define I2C_NUM I2C_NUM_0
 //#define I2C_NUM I2C_NUM_1
+#define I2C_TICKS_TO_WAIT 100 // Maximum ticks to wait before issuing a timeout.
 
 // The 3-wire bus controls the write/read, clock and data lines and operates at a maximum clock frequency of 400 kHz.
 //#define I2C_MASTER_FREQ_HZ 400000 /*!< I2C master clock frequency. no higher than 1MHz for now */
@@ -22,19 +22,28 @@
 static const char *TAG = "TAE5767";
 
 void radio_init(TEA5767_t * ctrl_data, int16_t sda, int16_t scl) {
-
-	i2c_config_t i2c_config = {
-		.mode = I2C_MODE_MASTER,
-		.sda_io_num = sda,
+	i2c_master_bus_config_t i2c_mst_config = {
+		.clk_source = I2C_CLK_SRC_DEFAULT,
+		.glitch_ignore_cnt = 7,
+		.i2c_port = I2C_NUM,
 		.scl_io_num = scl,
-		.sda_pullup_en = GPIO_PULLUP_ENABLE,
-		.scl_pullup_en = GPIO_PULLUP_ENABLE,
-		.master.clk_speed = I2C_MASTER_FREQ_HZ
+		.sda_io_num = sda,
+		.flags.enable_internal_pullup = true,
 	};
-	ESP_ERROR_CHECK(i2c_param_config(I2C_NUM, &i2c_config));
-	ESP_ERROR_CHECK(i2c_driver_install(I2C_NUM, I2C_MODE_MASTER, 0, 0, 0));
 
-	ctrl_data->_address = I2C_ADDRESS;
+	i2c_master_bus_handle_t bus_handle;
+	ESP_ERROR_CHECK(i2c_new_master_bus(&i2c_mst_config, &bus_handle));
+
+	i2c_device_config_t dev_cfg = {
+		.dev_addr_length = I2C_ADDR_BIT_LEN_7,
+		.device_address =I2C_ADDRESS,
+		.scl_speed_hz = I2C_MASTER_FREQ_HZ,
+	};
+
+	i2c_master_dev_handle_t dev_handle;
+	ESP_ERROR_CHECK(i2c_master_bus_add_device(bus_handle, &dev_cfg, &dev_handle));
+	ESP_LOGD(__FUNCTION__, "i2c_master_bus_add_device dev_handle=%d", dev_handle);
+
 	ctrl_data->port1 = 1;
 	ctrl_data->port2 = 1;
 	ctrl_data->high_cut = 1;
@@ -45,6 +54,7 @@ void radio_init(TEA5767_t * ctrl_data, int16_t sda, int16_t scl) {
 	ctrl_data->pllref = 0;
 	ctrl_data->HILO = 1;
 	ctrl_data->mute = false;
+	ctrl_data->handle = dev_handle;
 
 	//unsigned long freq = 87500000;
 	//set_frequency((float) freq / 1000000);
@@ -132,21 +142,7 @@ void radio_set_frequency_internal (TEA5767_t * ctrl_data, int hilo, double freq)
 
 	buffer[1] = div & 0xff;
 
-	i2c_cmd_handle_t cmd = i2c_cmd_link_create();
-	i2c_master_start(cmd);
-	i2c_master_write_byte(cmd, (ctrl_data->_address << 1) | I2C_MASTER_WRITE, true);
-	for (int i=0; i<5; i++) {
-		i2c_master_write_byte(cmd, buffer[i], true);
-	}
-	i2c_master_stop(cmd);
-	esp_err_t espRc = i2c_master_cmd_begin(I2C_NUM, cmd, 10/portTICK_PERIOD_MS);
-	if (espRc == ESP_OK) {
-		ESP_LOGD(TAG, "radio_set_frequency_internal successfully");
-	} else {
-		ESP_LOGE(TAG, "radio_set_frequency_internal failed. code: 0x%.2X", espRc);
-	}
-	i2c_cmd_link_delete(cmd);
-
+	ESP_ERROR_CHECK(i2c_master_transmit(ctrl_data->handle, buffer, 5, I2C_TICKS_TO_WAIT));
 }
 
 /* Freq should be specifyed at X M hz */
@@ -157,24 +153,10 @@ void radio_set_frequency (TEA5767_t * ctrl_data, double freq) {
 
 // Read Status
 int radio_read_status (TEA5767_t * ctrl_data, unsigned char *buf) {
-	int ret;
-	memset (buf, 0, 5);
-	i2c_cmd_handle_t cmd = i2c_cmd_link_create();
-	i2c_master_start(cmd);
-	i2c_master_write_byte(cmd, (ctrl_data->_address << 1) | I2C_MASTER_READ, true);
-	i2c_master_read(cmd, buf, 5, I2C_MASTER_ACK);
-	i2c_master_stop(cmd);
-	esp_err_t espRc = i2c_master_cmd_begin(I2C_NUM, cmd, 10/portTICK_PERIOD_MS);
-	if (espRc == ESP_OK) {
-		ESP_LOGD(TAG, "radio_read_status successfully");
-		ESP_LOG_BUFFER_HEXDUMP(TAG, buf, sizeof(buf), ESP_LOG_DEBUG);
-		ret = 1;
-	} else {
-		ESP_LOGE(TAG, "radio_read_status failed. code: 0x%.2X", espRc);
-		ret = 0;
-	}
-	i2c_cmd_link_delete(cmd);
-	return ret;
+	ESP_ERROR_CHECK(i2c_master_receive(ctrl_data->handle, buf, 5, I2C_TICKS_TO_WAIT));
+	ESP_LOGD(TAG, "radio_read_status successfully");
+	ESP_LOG_BUFFER_HEXDUMP(TAG, buf, sizeof(buf), ESP_LOG_DEBUG);
+	return 1;
 }
 
 int radio_signal_level (TEA5767_t * ctrl_data, unsigned char *buf) {
@@ -254,20 +236,7 @@ void radio_search_up (TEA5767_t * ctrl_data, unsigned char *buf) {
 	if (ctrl_data->pllref)
 		buf[4] |= TEA5767_PLLREF_ENABLE;
 
-	i2c_cmd_handle_t cmd = i2c_cmd_link_create();
-	i2c_master_start(cmd);
-	i2c_master_write_byte(cmd, (ctrl_data->_address << 1) | I2C_MASTER_WRITE, true);
-	for (int i=0; i<5; i++) {
-		i2c_master_write_byte(cmd, buf[i], true);
-	}
-	i2c_master_stop(cmd);
-	esp_err_t espRc = i2c_master_cmd_begin(I2C_NUM, cmd, 10/portTICK_PERIOD_MS);
-	if (espRc == ESP_OK) {
-		ESP_LOGD(TAG, "radio_search_up successfully");
-	} else {
-		ESP_LOGE(TAG, "radio_search_up failed. code: 0x%.2X", espRc);
-	}
-	i2c_cmd_link_delete(cmd);
+	ESP_ERROR_CHECK(i2c_master_transmit(ctrl_data->handle, buf, 5, I2C_TICKS_TO_WAIT));
 
 	ctrl_data->HILO = 1;
 }
@@ -319,20 +288,7 @@ void radio_search_down (TEA5767_t * ctrl_data, unsigned char *buf)
 	if (ctrl_data->pllref)
 	buf[4] |= TEA5767_PLLREF_ENABLE;
 
-	i2c_cmd_handle_t cmd = i2c_cmd_link_create();
-	i2c_master_start(cmd);
-	i2c_master_write_byte(cmd, (ctrl_data->_address << 1) | I2C_MASTER_WRITE, true);
-	for (int i=0; i<5; i++) {
-		i2c_master_write_byte(cmd, buf[i], true);
-	}
-	i2c_master_stop(cmd);
-	esp_err_t espRc = i2c_master_cmd_begin(I2C_NUM, cmd, 10/portTICK_PERIOD_MS);
-	if (espRc == ESP_OK) {
-		ESP_LOGD(TAG, "radio_search_down successfully");
-	} else {
-		ESP_LOGE(TAG, "radio_search_down failed. code: 0x%.2X", espRc);
-	}
-	i2c_cmd_link_delete(cmd);
+	ESP_ERROR_CHECK(i2c_master_transmit(ctrl_data->handle, buf, 5, I2C_TICKS_TO_WAIT));
 
 	ctrl_data->HILO = 1;
 }
@@ -375,4 +331,3 @@ int radio_process_search (TEA5767_t * ctrl_data, unsigned char *buf, int search_
 	}
 	return 0;
 }
-
